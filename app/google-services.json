@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "503372935977",
+    "firebase_url": "https://ftbt-d5b71.firebaseio.com",
+    "project_id": "ftbt-d5b71",
+    "storage_bucket": "ftbt-d5b71.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503372935977:android:868540ddd7c72ea3",
+        "android_client_info": {
+          "package_name": "com.example.ftbt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503372935977-qq22eip5p7944v3a6stmi1ad85f8gc96.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ftbt",
+            "certificate_hash": "2162f7d1006923c9c693db650f2fdacc8800adea"
+          }
+        },
+        {
+          "client_id": "503372935977-uqf8bphb9tt985d6hc30okvq3vbf03rk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDewfQILHVzNU5K91fpsCcSqD6Rqj6EHJE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503372935977-uqf8bphb9tt985d6hc30okvq3vbf03rk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

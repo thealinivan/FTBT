@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //green theme
+    <color name="colorPrimary1">#008577</color>
+    <color name="colorPrimaryDark1">#008577</color>
+    <color name="colorDark1">#007064</color>
+    <color name="colorAccent1">#008577</color>
+
+    //red theme
+    <color name="colorPrimary">#C52C2C</color>
+    <color name="colorPrimaryDark">#C52C2C</color>
+    <color name="colorDark">#961B1B</color>
+    <color name="colorAccent">#C52C2C</color>
+
+
+    //cross theme colors
+    <color name="white">#fff</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="blue">#273DB8</color>
+    <color name="grey">#F0F0F0</color>
+    <color name="halfGrey">#AEFFFFFF</color>
+
+</resources>

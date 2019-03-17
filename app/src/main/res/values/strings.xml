@@ -1,0 +1,61 @@
+<resources>
+    //Across activities
+    <string name="application_name">F T B T</string>
+
+    //Activities titles
+    <string name="appbar_home">Home</string>
+    <string name="appbar_add_attraction">New Attraction</string>
+    <string name="title_activity_account">My Account</string>
+
+    //Action buttons titles
+    <string name="action_new_attraction_title">New Attraction</string>
+    <string name="action_share">Share</string>
+
+    //Main activity
+    <string name="welcome_word0">A</string>
+    <string name="welcome_word1">social</string>
+    <string name="welcome_word2">network</string>
+    <string name="welcome_word3">for</string>
+    <string name="welcome_word4">tourists</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //Buttons
+    <string name="add_attraction">Submit</string>
+    <string name="submit_review">Submit</string>
+    <string name="cancel_review">Cancel</string>
+    <string name="txt_reviews"><u>Reviews</u></string>
+    <string name="txt_write_review">Write review</string>
+    <string name="txt_book_a_tour">Book a Tour</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="txt_register_btn">Register</string>
+    <string name="txt_login_btn">Login</string>
+    <string name="txt_guest_btn">Guest</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="account_change_password">Change password</string>
+    <string name="account_my_attractions">My Attractions</string>
+    <string name="account_my_reviews">My Reviews</string>
+    <string name="account_sign_out">Sign out</string>
+
+    //labels
+    <string name="sign_up">Sign Up</string>
+    <string name="login_new_account">New Account</string>
+    <string name="login_login">Login</string>
+    <string name="account_personal_info">Personal Info</string>
+    <string name="account_activity">Activity</string>
+    <string name="account_name">Name</string>
+    <string name="account_email">Email</string>
+
+</resources>
