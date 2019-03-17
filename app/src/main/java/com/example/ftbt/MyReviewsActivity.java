@@ -2,68 +2,26 @@ package com.example.ftbt;
 
 import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-public class AccountActivity extends AppCompatActivity {
+public class MyReviewsActivity extends AppCompatActivity {
 
     private ShareActionProvider shareActionProvider;
-    Button logoutBtn, myAttractionsBtn, myReviewsBtn, changePasswordBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
-
+        setContentView(R.layout.activity_my_reviews);
         //toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //set up button on app bar
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-
-        logoutBtn = findViewById(R.id.account_sign_out);
-        myAttractionsBtn = findViewById(R.id.account_my_attractions_button);
-        myReviewsBtn = findViewById(R.id.account_my_reviews_button);
-
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginActivity.token = false;
-                LoginActivity.userID = "";
-                Toast.makeText(AccountActivity.this, "Logged Out!", Toast.LENGTH_SHORT).show();
-                Intent iLogin = new Intent(AccountActivity.this, LoginActivity.class);
-                startActivity(iLogin);
-            }
-        });
-
-        myAttractionsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent iMyAttr = new Intent(AccountActivity.this, MyAttractionsActivity.class);
-                startActivity(iMyAttr);
-            }
-        });
-
-        myReviewsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent iMyRev = new Intent(AccountActivity.this, MyReviewsActivity.class);
-                startActivity(iMyRev);
-            }
-        });
     }
-
 
     //right menu along with action icons
     @Override
@@ -117,6 +75,7 @@ public class AccountActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }

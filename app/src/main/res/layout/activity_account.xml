@@ -142,7 +142,7 @@
         app:layout_constraintTop_toBottomOf="@+id/account_email_content" />
 
     <Button
-        android:id="@+id/account_my_attractions"
+        android:id="@+id/account_my_attractions_button"
         android:layout_width="142dp"
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
@@ -156,7 +156,7 @@
         app:layout_constraintTop_toBottomOf="@+id/heading_activity" />
 
     <Button
-        android:id="@+id/account_my_reviews"
+        android:id="@+id/account_my_reviews_button"
         android:layout_width="142dp"
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
@@ -167,7 +167,7 @@
         android:textColor="@color/colorPrimary"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_my_attractions" />
+        app:layout_constraintTop_toBottomOf="@+id/account_my_attractions_button" />
 
             <Button
                 android:id="@+id/account_sign_out"
@@ -185,7 +185,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_my_reviews"
+                app:layout_constraintTop_toBottomOf="@+id/account_my_reviews_button"
                 app:layout_constraintVertical_bias="0.0" />
 
         </android.support.constraint.ConstraintLayout>

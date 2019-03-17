@@ -10,6 +10,8 @@
     //Action buttons titles
     <string name="action_new_attraction_title">New Attraction</string>
     <string name="action_share">Share</string>
+    <string name="my_attractions">My Attractions</string>
+    <string name="my_reviews">My Reviews</string>
 
     //Main activity
     <string name="welcome_word0">A</string>
