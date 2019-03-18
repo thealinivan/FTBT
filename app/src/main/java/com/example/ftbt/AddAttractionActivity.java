@@ -58,9 +58,11 @@ public class AddAttractionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_attraction);
+
         //set toolbar as app bar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         //set up button on app bar
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -98,13 +100,17 @@ public class AddAttractionActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 StorageReference reference = sRef.child(attrName.getText().toString()+"."+getExtension(uri));
+
                 reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
                         imgUrl = uri.toString();
                         progressBar.setVisibility(View.VISIBLE);
                         submitBtn.setVisibility(View.INVISIBLE);
+
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -115,10 +121,13 @@ public class AddAttractionActivity extends AppCompatActivity {
                                         imgUrl,
                                         linkUrl,
                                         LoginActivity.userID.toLowerCase());
-                                dbRef.child(attr.getName()).setValue(attr);
+
+                                dbRef.child(dbRef.push().getKey()).setValue(attr);
+
                                 Toast.makeText(AddAttractionActivity.this, "New Attraction Added!", Toast.LENGTH_SHORT).show();
                                 Intent iHome = new Intent(AddAttractionActivity.this, HomeActivity.class);
                                 startActivity(iHome);
+
                             }
                         }, 1000);
                     }
