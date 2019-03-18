@@ -21,7 +21,9 @@
         <activity android:name=".MyReviewsActivity"
             android:label="@string/my_reviews"
             android:parentActivityName=".AccountActivity"></activity>
-        <activity android:name=".MyAttractionsActivity" />
+        <activity android:name=".MyAttractionsActivity"
+            android:label="@string/my_attractions"
+            android:parentActivityName=".AccountActivity"/>
         <activity
             android:name=".RegisterActivity"
             android:label="@string/my_attractions"
