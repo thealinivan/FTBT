@@ -1,9 +1,15 @@
 package com.example.ftbt;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,13 +18,43 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 
 public class HomeActivity extends AppCompatActivity {
+
+
+    private int[] tabIcons = {
+            R.drawable.ic_mainattractions,
+            R.drawable.ic_museum,
+            R.drawable.ic_greenspaces
+    };
 
     private ShareActionProvider shareActionProvider;
 
     //temp buttons
     private Button btn;
+
+    //temp
+    private RecyclerView rv;
+    private RecyclerView.LayoutManager manager;
+    private AttractionAdapter adapter;
+    private DatabaseReference dbRef;
+    private ArrayList<Attraction> list = new ArrayList<>();
+    private TabLayout tabLayout;
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +64,10 @@ public class HomeActivity extends AppCompatActivity {
         //toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Attractions");
 
         //temp buttons
         btn = findViewById(R.id.detailsBtn);
@@ -40,7 +80,25 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
+        //Attach SectionPagerAdapter to ViewPager
+        SectionsPagerAdapter pagerAdapter =
+                new SectionsPagerAdapter(getSupportFragmentManager());
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(pagerAdapter);
+
+        //Attach the Viewpager to the Tablayout
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(pager);
+
+        //Add icons to the TabLayout
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+
     }
+
+
 
     //right menu along with action icons
     @Override
@@ -94,7 +152,6 @@ public class HomeActivity extends AppCompatActivity {
             }
             return super.onOptionsItemSelected(item);
         }
-
 
 
 }

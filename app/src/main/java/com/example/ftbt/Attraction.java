@@ -15,6 +15,10 @@ public class Attraction {
         this.userID = userID;
     }
 
+    public Attraction(){}
+
+
+
     public String getName() {
         return name;
     }

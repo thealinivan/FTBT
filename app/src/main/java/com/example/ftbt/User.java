@@ -2,6 +2,17 @@ package com.example.ftbt;
 
 public class User {
 
+    public User(String email, String password, String fName, String lName) {
+        this.email = email;
+        this.password = password;
+        this.fName = fName;
+        this.lName = lName;
+    }
+
+    public User(){}
+
+
+
     public String getEmail() {
         return email;
     }
@@ -36,14 +47,6 @@ public class User {
 
     private String email, password, fName, lName;
 
-    public User() {
-    }
 
-    public User(String email, String password, String fName, String lName) {
-        this.email = email;
-        this.password = password;
-        this.fName = fName;
-        this.lName = lName;
-    }
 }
 

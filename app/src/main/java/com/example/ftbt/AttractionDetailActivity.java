@@ -29,6 +29,12 @@ public class AttractionDetailActivity extends AppCompatActivity {
     private ShareActionProvider shareActionProvider;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(AttractionDetailActivity.this, HomeActivity.class));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attraction_detail);

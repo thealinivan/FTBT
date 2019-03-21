@@ -51,7 +51,7 @@ public class AddAttractionActivity extends AppCompatActivity {
     private EditText attrName, attrDescription;
     private ProgressBar progressBar;
     private TextView attrLocation;
-    private String imgUrl, linkUrl;
+    private String imgUrl;
     private DatabaseReference dbRef;
 
     @Override
@@ -76,7 +76,7 @@ public class AddAttractionActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.add_attr_progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
 
-
+        submitBtn.setVisibility(View.VISIBLE);
 
         sRef = FirebaseStorage.getInstance().getReference("Images");
         dbRef = FirebaseDatabase.getInstance().getReference("Attractions");
@@ -88,6 +88,7 @@ public class AddAttractionActivity extends AppCompatActivity {
                 Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, REQUESTCODE);
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -101,30 +102,41 @@ public class AddAttractionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                StorageReference reference = sRef.child(attrName.getText().toString()+"."+getExtension(uri));
+                progressBar.setVisibility(View.VISIBLE);
+                submitBtn.setVisibility(View.INVISIBLE);
+
+                final StorageReference reference = sRef.child(attrName.getText().toString()+"."+getExtension(uri));
+
 
                 reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        imgUrl = uri.toString();
-                        progressBar.setVisibility(View.VISIBLE);
-                        submitBtn.setVisibility(View.INVISIBLE);
-
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Attraction attr = new Attraction(attrName.getText().toString(),
-                                        attrDescription.getText().toString(),
-                                        attrLocation(),
-                                        attrCategory(),
-                                        imgUrl,
-                                        linkUrl,
-                                        LoginActivity.userID.toLowerCase());
 
-                                dbRef.child(dbRef.push().getKey()).setValue(attr);
+                                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        imgUrl = uri.toString();
+                                        Log.d("TAG", imgUrl);
 
-                                Toast.makeText(AddAttractionActivity.this, "New Attraction Added!", Toast.LENGTH_SHORT).show();
+                                        Attraction attr = new Attraction(attrName.getText().toString(),
+                                                attrDescription.getText().toString(),
+                                                attrLocation(),
+                                                attrCategory(),
+                                                imgUrl,
+                                                linkUrl(),
+                                                LoginActivity.userID.toLowerCase());
+
+                                        //dbRef.child(dbRef.push().getKey()).setValue(attr);
+                                        dbRef.child(attr.getName()).setValue(attr);
+                                    }
+                                });
+
+
+                                Toast.makeText(AddAttractionActivity.this, "New attraction added!", Toast.LENGTH_SHORT).show();
                                 Intent iHome = new Intent(AddAttractionActivity.this, HomeActivity.class);
                                 startActivity(iHome);
 
@@ -135,6 +147,7 @@ public class AddAttractionActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressBar.setVisibility(View.INVISIBLE);
+                        submitBtn.setVisibility(View.VISIBLE);
                         Toast.makeText(AddAttractionActivity.this, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -216,7 +229,7 @@ public class AddAttractionActivity extends AppCompatActivity {
             uri = data.getData();
 
             //set up the image in imageview
-            pick.setImageURI(uri);
+            Picasso.get().load(uri).into(pick);
 
         }
     }
@@ -238,5 +251,5 @@ public class AddAttractionActivity extends AppCompatActivity {
     public String attrCategory(){
         return "Green Spaces";
     }
-
+    public String linkUrl(){ return "link-to-website"; }
 }
