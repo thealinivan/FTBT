@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     private int[] tabIcons = {
             R.drawable.ic_mainattractions,
             R.drawable.ic_museum,
-            R.drawable.ic_greenspaces
+            R.drawable.ic_greenspaces1
     };
 
     private ShareActionProvider shareActionProvider;
