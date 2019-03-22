@@ -12,11 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -29,23 +31,27 @@ public class ListMainAttrFragment extends Fragment {
     private AttractionAdapter adapter;
     private DatabaseReference dbRef;
     private ArrayList<Attraction> list = new ArrayList<>();
+    private Query qRef;
 
+    private ImageView img;
 
     public ListMainAttrFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            View MainAttrLayout = inflater.inflate(R.layout.fragment_list_main_attr, container, false);
-            rv = MainAttrLayout.findViewById(R.id.main_attr_list);
+            View rootView = inflater.inflate(R.layout.fragment_list_main_attr, container, false);
+            rv = rootView.findViewById(R.id.main_attr_recycler);
             manager = new LinearLayoutManager(getActivity());
             rv.setLayoutManager(manager);
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Attractions");
-        dbRef.addListenerForSingleValueEvent(listener);
+        qRef = FirebaseDatabase.getInstance().getReference("Attractions")
+                .getRef()
+                .orderByChild("category")
+                .equalTo("Main");
+        qRef.addListenerForSingleValueEvent(listener);
 
-
-        return MainAttrLayout;
+        return rootView;
     }
 
     ValueEventListener listener = new ValueEventListener() {
@@ -59,7 +65,6 @@ public class ListMainAttrFragment extends Fragment {
             adapter = new AttractionAdapter(list);
             rv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-
         }
 
         @Override

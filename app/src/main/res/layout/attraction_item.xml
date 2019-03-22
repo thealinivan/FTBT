@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,19 +25,29 @@
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="95dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@color/halfBlack"
-        android:paddingLeft="10dp"
+        android:background="@drawable/attr_item_title_background_color"
         android:text="Attraction title"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30sp"
-        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/attr_item_user_background"
+        app:layout_constraintBottom_toBottomOf="@+id/iv"
+        app:layout_constraintEnd_toEndOf="@+id/iv"
+        app:layout_constraintStart_toStartOf="@+id/iv" />
 
     <TextView
         android:id="@+id/tv2"
@@ -59,6 +69,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/iv"
         app:srcCompat="@drawable/ic_account1" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="User"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv"
+        app:layout_constraintStart_toEndOf="@+id/iv2" />
 
 
 </android.support.constraint.ConstraintLayout>

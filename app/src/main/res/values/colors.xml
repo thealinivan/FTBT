@@ -35,5 +35,7 @@
     <color name="grey">#F0F0F0</color>
     <color name="halfGrey">#AEFFFFFF</color>
     <color name="halfBlack">#48303030</color>
+    <color name="black3">#4B4B4B</color>
+    <color name="black4">#664B4B4B</color>
 
 </resources>
