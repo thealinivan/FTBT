@@ -278,8 +278,8 @@ public class AddAttractionActivity extends AppCompatActivity {
         return etText.getText().toString().trim().length() == 0;
     }
 
-    public String attrCategory(){ return "Main"; }
-    public String linkUrl(){ return "https://www.365tickets.co.uk/"; }
+    public String attrCategory(){ return "Green Spaces"; }
+    public String linkUrl(){ return "free entry"; }
 
 
 }

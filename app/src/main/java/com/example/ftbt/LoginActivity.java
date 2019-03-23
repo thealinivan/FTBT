@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //user feedback if missing info
+                //Check text fields and if filled get user from database into ArrayList
                 if (TextUtils.isEmpty(email.getText().toString())) {
                     Toast.makeText(LoginActivity.this, "Enter Email!", Toast.LENGTH_SHORT).show();
                     return;
@@ -101,40 +101,35 @@ public class LoginActivity extends AppCompatActivity {
                     qRef.addListenerForSingleValueEvent(listener);
                 }
 
-                if(!(list.size()>0)) {
-                    Toast.makeText(LoginActivity.this, "Wrong Email!", Toast.LENGTH_SHORT).show();
-                    //display progress bar
-                    email.setText("");
-                    pass.setText("");
-                }
-                else{
-                    if (!(mAuth(email.getText().toString(), (pass.getText().toString())))) {
-                        email.setText("");
-                        pass.setText("");
-                        Toast.makeText(LoginActivity.this, "Wrong Email or Password!", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        //display progress bar
-                        btnLogin.setVisibility(View.INVISIBLE);
-                        progressBar.setVisibility(View.VISIBLE);
+                //Check if email and password are matching
+                        if (!(mAuth(email.getText().toString(), (pass.getText().toString())))) {
+                            email.setText("");
+                            pass.setText("");
+                            Toast.makeText(LoginActivity.this, "Wrong Email or Password!", Toast.LENGTH_SHORT).show();
+                        }
 
-                        //Handle authentication
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
+                        else {
+                            //display progress bar
+                            btnLogin.setVisibility(View.INVISIBLE);
+                            progressBar.setVisibility(View.VISIBLE);
+
+                            //Handle authentication
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
 
 
-                                //user welcome feedback
-                                Toast.makeText(LoginActivity.this, "Welcome ", Toast.LENGTH_SHORT).show();
+                                    //user welcome feedback
+                                    Toast.makeText(LoginActivity.this, "Welcome ", Toast.LENGTH_SHORT).show();
 
-                                //chamge activity
-                                Intent iRegister = new Intent(LoginActivity.this, HomeActivity.class);
-                                startActivity(iRegister);
+                                    //chamge activity
+                                    Intent iRegister = new Intent(LoginActivity.this, HomeActivity.class);
+                                    startActivity(iRegister);
 
-                            }
-                        }, 1000);
-                    }
-                }
+                                }
+                            }, 1000);
+                        }
+
 
             }
         });
@@ -211,13 +206,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public boolean mAuth(String email, String password) {
-        ///the list is not populated
-        User user = list.get(0);
-        if((user.getEmail()).equals(email) && ((user.getPassword()).equals(password))){
-            token = true;
+        if (list.size() > 0) {
+            User user = list.get(0);
+            if ((user.getEmail()).equals(email) && ((user.getPassword()).equals(password))) {
+                token = true;
+            }
         }
-        else{ token = false; }
-
         return token;
     }
 
