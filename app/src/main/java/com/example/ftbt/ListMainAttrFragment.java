@@ -29,7 +29,6 @@ public class ListMainAttrFragment extends Fragment {
     private RecyclerView rv;
     private RecyclerView.LayoutManager manager;
     private AttractionAdapter adapter;
-    private DatabaseReference dbRef;
     private ArrayList<Attraction> list = new ArrayList<>();
     private Query qRef;
 

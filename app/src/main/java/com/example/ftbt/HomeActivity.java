@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
-
+    //Tablayout icons array
     private int[] tabIcons = {
             R.drawable.ic_mainattractions,
             R.drawable.ic_museum,
@@ -40,15 +40,6 @@ public class HomeActivity extends AppCompatActivity {
 
     //temp buttons
     private Button btn;
-
-    //temp
-    private RecyclerView rv;
-    private RecyclerView.LayoutManager manager;
-    private AttractionAdapter adapter;
-    private DatabaseReference dbRef;
-    private ArrayList<Attraction> list = new ArrayList<>();
-    private TabLayout tabLayout;
-
 
     @Override
     public void onBackPressed() {
@@ -64,10 +55,6 @@ public class HomeActivity extends AppCompatActivity {
         //toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
-        dbRef = FirebaseDatabase.getInstance().getReference("Attractions");
 
         //temp buttons
         btn = findViewById(R.id.detailsBtn);

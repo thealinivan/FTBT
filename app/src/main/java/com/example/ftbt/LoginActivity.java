@@ -7,9 +7,11 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +47,13 @@ public class LoginActivity extends AppCompatActivity {
     //progress bar
     private ProgressBar progressBar;
 
+    private static final String TAG = "FIREBASE:GET USER";
+
+    //for user queries
+    private Query qRef;
+    private RecyclerView rv;
+    private ArrayList<User> list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setVisibility(View.VISIBLE);
 
 
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,31 +94,47 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Enter Password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else if (!(mAuth(email.getText().toString(), (pass.getText().toString())))) {
+                else{
+                    qRef = FirebaseDatabase.getInstance().getReference("Users")
+                            .getRef()
+                            .orderByChild("email")
+                            .equalTo("kent@email.com");
+                    qRef.addListenerForSingleValueEvent(listener);
+                }
+
+                if(!(list.size()>0)) {
+                    Toast.makeText(LoginActivity.this, "Wrong Email!", Toast.LENGTH_SHORT).show();
+                    //display progress bar
                     email.setText("");
                     pass.setText("");
-                    Toast.makeText(LoginActivity.this, "Wrong Email or Password!", Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    //display progress bar
-                    btnLogin.setVisibility(View.INVISIBLE);
-                    progressBar.setVisibility(View.VISIBLE);
+                else{
+                    if (!(mAuth(email.getText().toString(), (pass.getText().toString())))) {
+                        email.setText("");
+                        pass.setText("");
+                        Toast.makeText(LoginActivity.this, "Wrong Email or Password!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        //display progress bar
+                        btnLogin.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.VISIBLE);
 
-                    //Handle authentication
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                        //Handle authentication
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
 
-                            //user welcome feedback
-                            Toast.makeText(LoginActivity.this, "Welcome " + "firebase userfName", Toast.LENGTH_SHORT).show();
 
-                            //chamge activity
-                            Intent iRegister = new Intent(LoginActivity.this, HomeActivity.class);
-                            startActivity(iRegister);
+                                //user welcome feedback
+                                Toast.makeText(LoginActivity.this, "Welcome ", Toast.LENGTH_SHORT).show();
 
-                        }
-                    }, 1000);
+                                //chamge activity
+                                Intent iRegister = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(iRegister);
 
+                            }
+                        }, 1000);
+                    }
                 }
 
             }
@@ -188,23 +212,37 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public boolean mAuth(String email, String password) {
-        //Check if user exists
-        if (userExists(email, password)) {
+        ///the list is not populated
+        User user = list.get(0);
+
+        if((user.getEmail()).equals(email) && ((user.getPassword()).equals(password))){
             //update login token and userID
-            userID = "user8";
+            userID = user.getEmail();
             token = true;
         }
-        return token;
+        else{
+            token = false;
+        }
+
+       return token;
     }
 
-    //check user credentials with firebase
-    public boolean userExists(String email, String password) {
-        boolean user = false;
-        if(email.equals("8") && password.equals("8")) {
-            user = true;
+
+    ValueEventListener listener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            list.clear();
+            for (DataSnapshot dss:dataSnapshot.getChildren()){
+                User user = dss.getValue(User.class);
+                list.add(user);
+            }
         }
-        return user;
-    }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
 
     //check if edit text fields are empty
     private boolean isEmpty(EditText etText)
