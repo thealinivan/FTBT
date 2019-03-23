@@ -20,8 +20,8 @@
     <color name="colorDark">#203666</color>
     <color name="colorAccent">#A6B5E2</color>
     <color name="colorLight">#526DA7</color>
-    <color name="semiT80">#CB3B5998</color>
-    <color name="semiT40">#663B5998</color>
+    <color name="semiT80">#E63B5998</color>
+    <color name="semiT40">#4D3B5998</color>
 
     //yellow theme
     <color name="colorPrimary2">#C1C52B</color>

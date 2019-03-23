@@ -89,11 +89,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(email.getText().toString())) {
                     Toast.makeText(LoginActivity.this, "Enter Email!", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (TextUtils.isEmpty(pass.getText().toString())) {
+                }
+                else if (TextUtils.isEmpty(pass.getText().toString())) {
                     Toast.makeText(LoginActivity.this, "Enter Password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else{
+                else {
                     qRef = FirebaseDatabase.getInstance().getReference("Users")
                             .getRef()
                             .orderByChild("email")

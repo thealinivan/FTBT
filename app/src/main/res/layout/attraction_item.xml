@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/iv"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -22,6 +22,7 @@
         app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@tools:sample/avatars" />
 
+
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
@@ -30,6 +31,7 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/attr_item_title_background_color"
         android:text="Attraction title"
+        android:paddingTop="10dp"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="28sp"
