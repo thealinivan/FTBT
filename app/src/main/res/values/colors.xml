@@ -20,6 +20,8 @@
     <color name="colorDark">#203666</color>
     <color name="colorAccent">#A6B5E2</color>
     <color name="colorLight">#526DA7</color>
+    <color name="semiT80">#CB3B5998</color>
+    <color name="semiT40">#663B5998</color>
 
     //yellow theme
     <color name="colorPrimary2">#C1C52B</color>
@@ -28,6 +30,7 @@
     <color name="colorAccent2">#C1C52B</color>
     <color name="colorLight2">#C2C464</color>
 
+
     //cross theme colors
     <color name="white">#fff</color>
     <color name="transparent">#00FFFFFF</color>
@@ -35,7 +38,7 @@
     <color name="grey">#F0F0F0</color>
     <color name="halfGrey">#AEFFFFFF</color>
     <color name="halfBlack">#48303030</color>
-    <color name="black3">#4B4B4B</color>
+    <color name="black3">#CB535353</color>
     <color name="black4">#664B4B4B</color>
 
 </resources>

@@ -12,12 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class AccountActivity extends AppCompatActivity {
 
     private ShareActionProvider shareActionProvider;
     Button logoutBtn, myAttractionsBtn, myReviewsBtn, changePasswordBtn;
+    TextView accountSubtitle, accountName, accountEmail ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +39,21 @@ public class AccountActivity extends AppCompatActivity {
         logoutBtn = findViewById(R.id.account_sign_out);
         myAttractionsBtn = findViewById(R.id.account_my_attractions_button);
         myReviewsBtn = findViewById(R.id.account_my_reviews_button);
+        accountSubtitle = findViewById(R.id.account_subtitle);
+        accountName = findViewById(R.id.account_name_content);
+        accountEmail = findViewById(R.id.account_email_content);
+
+        if(LoginActivity.token = true){
+            User user = LoginActivity.getCurrentUser();
+            accountSubtitle.setText(capitalize(user.getfName())+" "+capitalize(user.getlName()));
+            accountName.setText(capitalize(user.getfName())+" "+capitalize(user.getlName()));
+            accountEmail.setText(user.getEmail());
+        }
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginActivity.token = false;
-                LoginActivity.userID = "";
                 Toast.makeText(AccountActivity.this, "Logged Out!", Toast.LENGTH_SHORT).show();
                 Intent iLogin = new Intent(AccountActivity.this, LoginActivity.class);
                 startActivity(iLogin);
@@ -117,6 +130,11 @@ public class AccountActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public String capitalize(String string){
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
+
 
 
 }

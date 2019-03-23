@@ -108,10 +108,11 @@ public class RegisterActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.VISIBLE);
 
                         //create user object
-                        User user = new User(email.getText().toString().toLowerCase(),
-                                             pass.getText().toString().toLowerCase(),
-                                             fName.getText().toString().toLowerCase(),
-                                             lName.getText().toString().toLowerCase());
+                        User user = new User(email.getText().toString().toLowerCase().trim(),
+                                             pass.getText().toString().toLowerCase().trim(),
+                                             fName.getText().toString().toLowerCase().trim(),
+                                             lName.getText().toString().toLowerCase().trim());
+
                         //store the user in firebase
                         dbRef.child((user.getEmail()).replace(".", ",")).setValue(user);
 

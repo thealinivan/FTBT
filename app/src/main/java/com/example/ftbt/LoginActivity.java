@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
     //login token and ID(for retrieving user data)
     public static boolean token = false;
-    public static String userID = "";
 
     //text fields
     private EditText email, pass;
@@ -52,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     //for user queries
     private Query qRef;
     private RecyclerView rv;
-    private ArrayList<User> list = new ArrayList<>();
+    private static ArrayList<User> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                     qRef = FirebaseDatabase.getInstance().getReference("Users")
                             .getRef()
                             .orderByChild("email")
-                            .equalTo("kent@email.com");
+                            .equalTo(email.getText().toString().toLowerCase().trim());
                     qRef.addListenerForSingleValueEvent(listener);
                 }
 
@@ -214,17 +213,12 @@ public class LoginActivity extends AppCompatActivity {
     public boolean mAuth(String email, String password) {
         ///the list is not populated
         User user = list.get(0);
-
         if((user.getEmail()).equals(email) && ((user.getPassword()).equals(password))){
-            //update login token and userID
-            userID = user.getEmail();
             token = true;
         }
-        else{
-            token = false;
-        }
+        else{ token = false; }
 
-       return token;
+        return token;
     }
 
 
@@ -249,5 +243,11 @@ public class LoginActivity extends AppCompatActivity {
     {
         return etText.getText().toString().trim().length() == 0;
     }
+
+    //return logged in user object
+    public static User getCurrentUser(){
+        return list.get(0);
+    }
+
 
 }

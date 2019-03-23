@@ -3,6 +3,10 @@ package com.example.ftbt;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Handler;
@@ -15,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,7 +43,10 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
+import java.util.List;
+import java.util.Locale;
 
 public class AddAttractionActivity extends AppCompatActivity {
 
@@ -102,6 +110,14 @@ public class AddAttractionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //user feedback if missing info
+                if (TextUtils.isEmpty(attrName.getText().toString())) {
+                    Toast.makeText(AddAttractionActivity.this, "Enter Attraction Name!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (TextUtils.isEmpty(attrDescription.getText().toString())) {
+                    Toast.makeText(AddAttractionActivity.this, "Enter Attraction Description!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 progressBar.setVisibility(View.VISIBLE);
                 submitBtn.setVisibility(View.INVISIBLE);
 
@@ -128,7 +144,7 @@ public class AddAttractionActivity extends AppCompatActivity {
                                                 attrCategory(),
                                                 imgUrl,
                                                 linkUrl(),
-                                                LoginActivity.userID.toLowerCase());
+                                                (LoginActivity.getCurrentUser()).getEmail());
 
                                         //dbRef.child(dbRef.push().getKey()).setValue(attr);
                                         dbRef.child(attr.getName()).setValue(attr);
@@ -243,13 +259,27 @@ public class AddAttractionActivity extends AppCompatActivity {
         return isDupl;
     }
 
-    public String attrLocation(){
-        String loc = "London";
-        return loc;
+    public String attrLocation() {
+        String address = "London";
+
+        //Get Lat and Lng
+        Location loc = new Location("");
+        Double lng = loc.getLongitude();
+        Double lat = loc.getLatitude();
+
+        //Get address based on Lat and Long
+
+            return address ;
     }
 
-    public String attrCategory(){
-        return "Green Spaces";
+    //check if edit text fields are empty
+    private boolean isEmpty(EditText etText)
+    {
+        return etText.getText().toString().trim().length() == 0;
     }
-    public String linkUrl(){ return "link-to-website"; }
+
+    public String attrCategory(){ return "Main"; }
+    public String linkUrl(){ return "https://www.365tickets.co.uk/"; }
+
+
 }

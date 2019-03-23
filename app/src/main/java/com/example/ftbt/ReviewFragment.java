@@ -57,7 +57,6 @@ public class ReviewFragment extends Fragment implements View.OnClickListener {
                     Intent iLogin = new Intent(getActivity(), LoginActivity.class);
                     startActivity(iLogin);
                     Toast.makeText(getActivity(), "You need to login first!", Toast.LENGTH_SHORT).show();
-
                 }
                 else {
                     //Handle submision of the review into firebase

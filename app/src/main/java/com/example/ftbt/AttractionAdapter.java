@@ -24,13 +24,15 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Ho
 
     public static class Holder extends RecyclerView.ViewHolder {
         ImageView iv;
-        TextView tv;
+        TextView tv, tv2, tv3;
 
 
         public Holder(@NonNull View itemView) {
             super(itemView);
             iv = itemView.findViewById(R.id.iv);
             tv = itemView.findViewById(R.id.tv);
+            tv2 = itemView.findViewById(R.id.tv2);
+            tv3 = itemView.findViewById(R.id.tv3);
         }
     }
     @NonNull
@@ -44,6 +46,13 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Ho
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         holder.tv.setText(list.get(i).getName());
+
+        String user = list.get(i).getUserID().split("\\@")[0];
+        String _user = user.substring(0, 1).toUpperCase() + user.substring(1);
+        holder.tv2.setText(_user);
+
+        holder.tv3.setText(list.get(i).getLocation().split("\\@")[0]);
+
         Picasso.get().load((list.get(i)).getImgUrl()).into(holder.iv);
     }
 
@@ -51,6 +60,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Ho
     public int getItemCount() {
         return list.size();
     }
+
 
 
 }

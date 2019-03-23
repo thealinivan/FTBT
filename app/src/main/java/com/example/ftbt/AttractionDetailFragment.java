@@ -62,12 +62,18 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
                 scrollView.smoothScrollTo(0, (int)reviewsTitle.getY());
             break;
             case R.id.attr_detail_new_review:
-                //add review fragment to the parent fragment
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.review_fragment_container, new ReviewFragment());
-                ft.addToBackStack(null);
-                ft.commit();
-
+                if(!(LoginActivity.token)) {
+                    Intent iLogin = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(iLogin);
+                    Toast.makeText(getActivity(), "You need to login first!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //add review fragment to the parent fragment
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.review_fragment_container, new ReviewFragment());
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
                 break;
             case R.id.attr_detail_book:
                 if(LoginActivity.token) {
