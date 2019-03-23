@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                     qRef.addListenerForSingleValueEvent(listener);
                 }
 
-                //Check if email and password are matching
+                        //Check if email and password are matching
                         if (!(mAuth(email.getText().toString(), (pass.getText().toString())))) {
                             email.setText("");
                             pass.setText("");
