@@ -1,6 +1,7 @@
 package com.example.ftbt;
 
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +12,13 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Holder> {
 
-    private ArrayList<Attraction> list;
+    private static ArrayList<Attraction> list;
+
 
     public AttractionAdapter(ArrayList<Attraction> list) {
         this.list = list;
@@ -33,6 +36,23 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Ho
             tv = itemView.findViewById(R.id.tv);
             tv2 = itemView.findViewById(R.id.tv2);
             tv3 = itemView.findViewById(R.id.tv3);
+
+            //onclick listener to start detail activity
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    //Attraction attr = list.get(getAdapterPosition());
+                    Intent intent = new Intent(v.getContext(), AttractionDetailActivity.class);
+                    //intent.putExtra("attrListPos", attr);
+                    v.getContext().startActivity(intent);
+                }
+            });
+
+
+
+
         }
     }
     @NonNull
