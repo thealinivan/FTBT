@@ -38,8 +38,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private ShareActionProvider shareActionProvider;
 
-    //temp buttons
-    private Button btn;
 
     @Override
     public void onBackPressed() {
@@ -55,17 +53,6 @@ public class HomeActivity extends AppCompatActivity {
         //toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //temp buttons
-        btn = findViewById(R.id.detailsBtn);
-
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, AttractionDetailActivity.class));
-            }
-        });
 
 
         //Attach SectionPagerAdapter to ViewPager

@@ -25,7 +25,7 @@ import org.w3c.dom.Text;
 
 public class AttractionDetailFragment extends Fragment implements View.OnClickListener {
 
-    private TextView Reviews, reviewsTitle;
+    private TextView Reviews, reviewsTitle, attrTitle;
     private Button btnAddReview, btnBook;
     private ScrollView scrollView;
 
@@ -43,11 +43,18 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
         btnBook = attrDetailLayout.findViewById(R.id.attr_detail_book);
         scrollView = attrDetailLayout.findViewById(R.id.attr_details_scrollview);
         reviewsTitle = attrDetailLayout.findViewById(R.id.attr_detail_title_reviews);
+        attrTitle = attrDetailLayout.findViewById(R.id.attr_detail_title);
 
         //set on click listeners
         Reviews.setOnClickListener(this);
         btnAddReview.setOnClickListener(this);
         btnBook.setOnClickListener(this);
+
+        //get current attraction
+        Intent i = getActivity().getIntent();
+        Attraction attr = (Attraction) i.getSerializableExtra("attr");
+        //attrTitle.setText(attr.getName());
+
 
         return attrDetailLayout;
     }

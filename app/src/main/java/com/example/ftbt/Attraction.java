@@ -1,6 +1,8 @@
 package com.example.ftbt;
 
-public class Attraction {
+import java.io.Serializable;
+
+public class Attraction implements Serializable {
 
     private String name, description, location, category, imgUrl, linkUrl, userID;
 

@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.zip.Inflater;
 
 public class AttractionDetailActivity extends AppCompatActivity {
@@ -49,6 +50,12 @@ public class AttractionDetailActivity extends AppCompatActivity {
 
         //set activity title
         this.setTitle("Attraction Title");
+
+        //Pass current attraction to fragment
+        Attraction attr = new Attraction();
+        getIntent().putExtra("attr", attr);
+
+
 
         //add the attraction detail fragment to the activity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
