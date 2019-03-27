@@ -51,6 +51,7 @@ public class AttractionDetailActivity extends AppCompatActivity {
         //set activity title
         this.setTitle("Attraction Title");
 
+///try to pass attr obj to details activity
         //Pass current attraction to fragment
         Attraction attr = new Attraction();
         getIntent().putExtra("attr", attr);

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Holder> {
 
-    private static ArrayList<Attraction> list;
+    private ArrayList<Attraction> list;
 
 
     public AttractionAdapter(ArrayList<Attraction> list) {
@@ -43,10 +43,12 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Ho
                 @Override
                 public void onClick(View v)
                 {
+ ///try to pass attr obj to details activity
                     //Attraction attr = list.get(getAdapterPosition());
                     Intent intent = new Intent(v.getContext(), AttractionDetailActivity.class);
                     //intent.putExtra("attrListPos", attr);
                     v.getContext().startActivity(intent);
+
                 }
             });
 

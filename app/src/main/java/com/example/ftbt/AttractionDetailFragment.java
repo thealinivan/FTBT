@@ -50,6 +50,7 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
         btnAddReview.setOnClickListener(this);
         btnBook.setOnClickListener(this);
 
+///try to pass attr obj to details activity
         //get current attraction
         Intent i = getActivity().getIntent();
         Attraction attr = (Attraction) i.getSerializableExtra("attr");

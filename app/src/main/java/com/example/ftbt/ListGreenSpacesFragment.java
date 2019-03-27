@@ -4,6 +4,7 @@ package com.example.ftbt;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,7 +37,7 @@ public class ListGreenSpacesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list_green_spaces, container, false);
         rv = rootView.findViewById(R.id.green_spaces_recycler);
-        manager = new LinearLayoutManager(getActivity());
+        manager = new GridLayoutManager(getActivity(), 2);
         rv.setLayoutManager(manager);
 
         qRef = FirebaseDatabase.getInstance().getReference("Attractions")
