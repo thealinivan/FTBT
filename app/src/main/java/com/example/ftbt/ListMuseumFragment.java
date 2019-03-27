@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ListMuseumFragment extends Fragment {
+public class ListMuseumFragment extends Fragment implements AttractionAdapter.Holder.AttractionClickListener {
 
     private RecyclerView rv;
     private RecyclerView.LayoutManager manager;
@@ -57,7 +57,7 @@ public class ListMuseumFragment extends Fragment {
                 Attraction attr = dss.getValue(Attraction.class);
                 list.add(attr);
             }
-            adapter = new AttractionAdapter(list);
+            adapter = new AttractionAdapter(list, ListMuseumFragment.this);
             rv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
@@ -68,4 +68,8 @@ public class ListMuseumFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onAttractionClick(int position) {
+
+    }
 }

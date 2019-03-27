@@ -18,50 +18,44 @@ import java.util.ArrayList;
 public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Holder> {
 
     private ArrayList<Attraction> list;
+    Holder.AttractionClickListener listener;
 
-
-    public AttractionAdapter(ArrayList<Attraction> list) {
+    public AttractionAdapter(ArrayList<Attraction> list, Holder.AttractionClickListener listener) {
         this.list = list;
+        this.listener = listener;
     }
 
-
-    public static class Holder extends RecyclerView.ViewHolder {
+    public static class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView iv;
         TextView tv, tv2, tv3;
+        AttractionClickListener listener;
 
-
-        public Holder(@NonNull View itemView) {
+        public Holder(@NonNull View itemView, AttractionClickListener _listener) {
             super(itemView);
             iv = itemView.findViewById(R.id.iv);
             tv = itemView.findViewById(R.id.tv);
             tv2 = itemView.findViewById(R.id.tv2);
             tv3 = itemView.findViewById(R.id.tv3);
+            listener = _listener;
+            itemView.setOnClickListener(this);
 
-            //onclick listener to start detail activity
-            itemView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
- ///try to pass attr obj to details activity
-                    //Attraction attr = list.get(getAdapterPosition());
-                    Intent intent = new Intent(v.getContext(), AttractionDetailActivity.class);
-                    //intent.putExtra("attrListPos", attr);
-                    v.getContext().startActivity(intent);
+        }
 
-                }
-            });
+        @Override
+        public void onClick(View v) {
+            listener.onAttractionClick(getAdapterPosition());
+        }
 
-
-
-
+        public interface AttractionClickListener
+        {
+            public void onAttractionClick(int position);
         }
     }
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.attraction_item, viewGroup, false);
-        Holder holder = new Holder(v);
+        Holder holder = new Holder(v, listener);
         return holder;
     }
 

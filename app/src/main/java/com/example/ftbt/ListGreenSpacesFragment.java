@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ListGreenSpacesFragment extends Fragment {
+public class ListGreenSpacesFragment extends Fragment implements AttractionAdapter.Holder.AttractionClickListener {
 
     private RecyclerView rv;
     private RecyclerView.LayoutManager manager;
@@ -57,7 +57,7 @@ public class ListGreenSpacesFragment extends Fragment {
                 Attraction attr = dss.getValue(Attraction.class);
                 list.add(attr);
             }
-            adapter = new AttractionAdapter(list);
+            adapter = new AttractionAdapter(list, ListGreenSpacesFragment.this);
             rv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
@@ -68,4 +68,8 @@ public class ListGreenSpacesFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onAttractionClick(int position) {
+
+    }
 }

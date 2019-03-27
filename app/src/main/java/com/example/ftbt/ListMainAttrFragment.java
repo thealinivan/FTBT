@@ -1,6 +1,8 @@
 package com.example.ftbt;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ListMainAttrFragment extends Fragment {
+public class ListMainAttrFragment extends Fragment implements AttractionAdapter.Holder.AttractionClickListener {
 
 
     private RecyclerView rv;
@@ -61,7 +63,8 @@ public class ListMainAttrFragment extends Fragment {
                 Attraction attr = dss.getValue(Attraction.class);
                 list.add(attr);
             }
-            adapter = new AttractionAdapter(list);
+            //adapter = new AttractionAdapter(list, this);
+            adapter = new AttractionAdapter(list, ListMainAttrFragment.this);
             rv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
@@ -72,4 +75,10 @@ public class ListMainAttrFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onAttractionClick(int position) {
+        Intent i = new Intent(getActivity(), AttractionDetailActivity.class);
+        i.putExtra("Attraction", list.get(position));
+        startActivity(i);
+    }
 }

@@ -36,7 +36,7 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
                              Bundle savedInstanceState) {
         //get the fragment in a view
         View attrDetailLayout = inflater.inflate(R.layout.fragment_attraction_detail, container, false);
-
+        Attraction a = AttractionDetailActivity.getAttraction();
         //links
         Reviews = attrDetailLayout.findViewById(R.id.attr_detail_reviews);
         btnAddReview = attrDetailLayout.findViewById(R.id.attr_detail_new_review);
@@ -45,17 +45,11 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
         reviewsTitle = attrDetailLayout.findViewById(R.id.attr_detail_title_reviews);
         attrTitle = attrDetailLayout.findViewById(R.id.attr_detail_title);
 
+        attrTitle.setText(a.getName().toString());
         //set on click listeners
         Reviews.setOnClickListener(this);
         btnAddReview.setOnClickListener(this);
         btnBook.setOnClickListener(this);
-
-///try to pass attr obj to details activity
-        //get current attraction
-        Intent i = getActivity().getIntent();
-        Attraction attr = (Attraction) i.getSerializableExtra("attr");
-        //attrTitle.setText(attr.getName());
-
 
         return attrDetailLayout;
     }

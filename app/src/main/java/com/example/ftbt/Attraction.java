@@ -1,8 +1,11 @@
 package com.example.ftbt;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class Attraction implements Serializable {
+public class Attraction implements Parcelable {
 
     private String name, description, location, category, imgUrl, linkUrl, userID;
 
@@ -20,6 +23,27 @@ public class Attraction implements Serializable {
     public Attraction(){}
 
 
+    protected Attraction(Parcel in) {
+        name = in.readString();
+        description = in.readString();
+        location = in.readString();
+        category = in.readString();
+        imgUrl = in.readString();
+        linkUrl = in.readString();
+        userID = in.readString();
+    }
+
+    public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
+        @Override
+        public Attraction createFromParcel(Parcel in) {
+            return new Attraction(in);
+        }
+
+        @Override
+        public Attraction[] newArray(int size) {
+            return new Attraction[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -75,5 +99,21 @@ public class Attraction implements Serializable {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeString(location);
+        dest.writeString(category);
+        dest.writeString(imgUrl);
+        dest.writeString(linkUrl);
+        dest.writeString(userID);
     }
 }

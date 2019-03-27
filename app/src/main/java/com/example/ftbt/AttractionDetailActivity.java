@@ -28,7 +28,7 @@ import java.util.zip.Inflater;
 public class AttractionDetailActivity extends AppCompatActivity {
 
     private ShareActionProvider shareActionProvider;
-
+    static Attraction a;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -51,12 +51,8 @@ public class AttractionDetailActivity extends AppCompatActivity {
         //set activity title
         this.setTitle("Attraction Title");
 
-///try to pass attr obj to details activity
-        //Pass current attraction to fragment
-        Attraction attr = new Attraction();
-        getIntent().putExtra("attr", attr);
-
-
+        ///get current attr and pass it tofrgment
+        a = getIntent().getParcelableExtra("Attraction");
 
         //add the attraction detail fragment to the activity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -117,6 +113,10 @@ public class AttractionDetailActivity extends AppCompatActivity {
             default:
         }
         return super.onOptionsItemSelected(item);
+    }
+    public static Attraction getAttraction()
+    {
+        return a;
     }
 
 

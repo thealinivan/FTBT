@@ -225,6 +225,8 @@ public class LoginActivity extends AppCompatActivity {
                 User user = dss.getValue(User.class);
                 list.add(user);
             }
+
+
         }
 
         @Override
