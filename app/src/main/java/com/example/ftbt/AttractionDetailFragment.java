@@ -16,18 +16,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
 
 public class AttractionDetailFragment extends Fragment implements View.OnClickListener {
 
-    private TextView Reviews, reviewsTitle, attrTitle;
+    private TextView Reviews, reviewsTitle, _attrTitle, _attrLocation, _attrDescription;
     private Button btnAddReview, btnBook;
     private ScrollView scrollView;
+    private ImageView _attrImg;
+    private Attraction currentAttraction;
 
     public AttractionDetailFragment() {}
 
@@ -36,16 +41,28 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
                              Bundle savedInstanceState) {
         //get the fragment in a view
         View attrDetailLayout = inflater.inflate(R.layout.fragment_attraction_detail, container, false);
-        Attraction a = AttractionDetailActivity.getAttraction();
+        currentAttraction = AttractionDetailActivity.getAttraction();
         //links
         Reviews = attrDetailLayout.findViewById(R.id.attr_detail_reviews);
         btnAddReview = attrDetailLayout.findViewById(R.id.attr_detail_new_review);
-        btnBook = attrDetailLayout.findViewById(R.id.attr_detail_book);
         scrollView = attrDetailLayout.findViewById(R.id.attr_details_scrollview);
         reviewsTitle = attrDetailLayout.findViewById(R.id.attr_detail_title_reviews);
-        attrTitle = attrDetailLayout.findViewById(R.id.attr_detail_title);
+        btnBook = attrDetailLayout.findViewById(R.id.attr_detail_book);
 
-        attrTitle.setText(a.getName().toString());
+        _attrTitle = attrDetailLayout.findViewById(R.id.attr_detail_title);
+        _attrLocation = attrDetailLayout.findViewById(R.id.attr_detail_location);
+        _attrDescription = attrDetailLayout.findViewById(R.id.attr_detail_description);
+        _attrImg = attrDetailLayout.findViewById(R.id.attr_detail_img);
+
+
+        //populate data fields
+        _attrTitle.setText(currentAttraction.getName());
+        _attrLocation.setText(currentAttraction.getLocation());
+        _attrDescription.setText(currentAttraction.getDescription());
+        Picasso.get().load(currentAttraction.getImgUrl()).into(_attrImg);
+
+
+
         //set on click listeners
         Reviews.setOnClickListener(this);
         btnAddReview.setOnClickListener(this);
@@ -80,7 +97,7 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
             case R.id.attr_detail_book:
                 if(LoginActivity.token) {
                     //Handle website redirection
-                    String url = "https://www.365tickets.co.uk/";
+                    String url = currentAttraction.getLinkUrl();
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     startActivity(i);

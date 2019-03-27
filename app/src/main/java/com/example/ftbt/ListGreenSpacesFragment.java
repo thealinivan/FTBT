@@ -1,6 +1,7 @@
 package com.example.ftbt;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -70,6 +71,8 @@ public class ListGreenSpacesFragment extends Fragment implements AttractionAdapt
 
     @Override
     public void onAttractionClick(int position) {
-
+        Intent i = new Intent(getActivity(), AttractionDetailActivity.class);
+        i.putExtra("Attraction", list.get(position));
+        startActivity(i);
     }
 }

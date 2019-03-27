@@ -1,6 +1,6 @@
 package com.example.ftbt;
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -26,7 +26,6 @@ public class ListMuseumFragment extends Fragment implements AttractionAdapter.Ho
     private RecyclerView rv;
     private RecyclerView.LayoutManager manager;
     private AttractionAdapter adapter;
-    private DatabaseReference dbRef;
     private ArrayList<Attraction> list = new ArrayList<>();
     private Query qRef;
 
@@ -70,6 +69,8 @@ public class ListMuseumFragment extends Fragment implements AttractionAdapter.Ho
 
     @Override
     public void onAttractionClick(int position) {
-
+        Intent i = new Intent(getActivity(), AttractionDetailActivity.class);
+        i.putExtra("Attraction", list.get(position));
+        startActivity(i);
     }
 }

@@ -27,24 +27,21 @@ import java.util.ArrayList;
 
 public class ListMainAttrFragment extends Fragment implements AttractionAdapter.Holder.AttractionClickListener {
 
-
     private RecyclerView rv;
     private RecyclerView.LayoutManager manager;
     private AttractionAdapter adapter;
     private ArrayList<Attraction> list = new ArrayList<>();
     private Query qRef;
 
-    private ImageView img;
-
     public ListMainAttrFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_list_main_attr, container, false);
-            rv = rootView.findViewById(R.id.main_attr_recycler);
-            manager = new LinearLayoutManager(getActivity());
-            rv.setLayoutManager(manager);
+        View rootView = inflater.inflate(R.layout.fragment_list_main_attr, container, false);
+        rv = rootView.findViewById(R.id.main_attr_recycler);
+        manager = new LinearLayoutManager(getActivity());
+        rv.setLayoutManager(manager);
 
         qRef = FirebaseDatabase.getInstance().getReference("Attractions")
                 .getRef()
