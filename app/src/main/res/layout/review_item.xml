@@ -18,24 +18,24 @@
         app:srcCompat="@drawable/ic_account1" />
 
     <TextView
-        android:id="@+id/ri_acc"
+        android:id="@+id/ri_fName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="AccountName"
+        android:text="Account First Name"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/ri_img"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ri_date"
+        android:id="@+id/ri_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="8th of March 2019"
+        android:text="Account Email"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/ri_acc"
-        app:layout_constraintTop_toBottomOf="@+id/ri_acc"/>
+        app:layout_constraintStart_toStartOf="@+id/ri_fName"
+        app:layout_constraintTop_toBottomOf="@+id/ri_fName"/>
 
     <EditText
         android:id="@+id/ri_description"
@@ -48,11 +48,10 @@
         android:background="@drawable/edit_text"
         android:ems="10"
         android:textSize="15sp"
-        android:textColor="@color/colorLight"
         android:inputType="textMultiLine"
         android:text="Review content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ri_date" />
+        app:layout_constraintTop_toBottomOf="@+id/ri_email" />
 </android.support.constraint.ConstraintLayout>

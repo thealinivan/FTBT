@@ -46,11 +46,9 @@ public class LoginActivity extends AppCompatActivity {
     //progress bar
     private ProgressBar progressBar;
 
-    private static final String TAG = "FIREBASE:GET USER";
 
     //for user queries
     private Query qRef;
-    private RecyclerView rv;
     private static ArrayList<User> list = new ArrayList<>();
 
     @Override
@@ -217,6 +215,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+
     ValueEventListener listener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -234,6 +233,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     };
+
 
     //check if edit text fields are empty
     private boolean isEmpty(EditText etText)

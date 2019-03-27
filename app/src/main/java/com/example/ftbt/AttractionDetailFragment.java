@@ -33,6 +33,7 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
     private ScrollView scrollView;
     private ImageView _attrImg;
     private Attraction currentAttraction;
+    private Review currentReview;
 
     public AttractionDetailFragment() {}
 
@@ -41,7 +42,7 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
                              Bundle savedInstanceState) {
         //get the fragment in a view
         View attrDetailLayout = inflater.inflate(R.layout.fragment_attraction_detail, container, false);
-        currentAttraction = AttractionDetailActivity.getAttraction();
+        currentAttraction = AttractionDetailActivity.getCurrentAttraction();
         //links
         Reviews = attrDetailLayout.findViewById(R.id.attr_detail_reviews);
         btnAddReview = attrDetailLayout.findViewById(R.id.attr_detail_new_review);

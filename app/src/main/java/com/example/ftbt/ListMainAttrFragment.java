@@ -60,7 +60,8 @@ public class ListMainAttrFragment extends Fragment implements AttractionAdapter.
                 Attraction attr = dss.getValue(Attraction.class);
                 list.add(attr);
             }
-            //adapter = new AttractionAdapter(list, this);
+
+            //initiate adapter and attached it to recycler view
             adapter = new AttractionAdapter(list, ListMainAttrFragment.this);
             rv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
