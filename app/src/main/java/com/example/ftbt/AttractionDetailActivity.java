@@ -28,7 +28,7 @@ import java.util.zip.Inflater;
 public class AttractionDetailActivity extends AppCompatActivity {
 
     private ShareActionProvider shareActionProvider;
-    static Attraction currentAttraction;
+    private static Attraction currentAttraction;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
