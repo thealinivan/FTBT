@@ -113,6 +113,9 @@ public class AttractionDetailActivity extends AppCompatActivity {
                     startActivity(iLogin);
                 }
                 break;
+
+            case R.id.action_share:
+                setShareActionIntent("Download FTBT from Playstore to check the latest updates for " + getCurrentAttraction().getName() + " in London");
             default:
         }
         return super.onOptionsItemSelected(item);

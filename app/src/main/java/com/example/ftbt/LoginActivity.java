@@ -100,36 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                     qRef.addListenerForSingleValueEvent(listener);
                 }
 
-                        //Check if email and password are matching
-                        if (!(mAuth(email.getText().toString(), (pass.getText().toString())))) {
-                            email.setText("");
-                            pass.setText("");
-                            Toast.makeText(LoginActivity.this, "Wrong Email or Password!", Toast.LENGTH_SHORT).show();
-                        }
-
-                        else {
-                            //display progress bar
-                            btnLogin.setVisibility(View.INVISIBLE);
-                            progressBar.setVisibility(View.VISIBLE);
-
-                            //Handle authentication
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-
-
-                                    //user welcome feedback
-                                    Toast.makeText(LoginActivity.this, "Welcome ", Toast.LENGTH_SHORT).show();
-
-                                    //chamge activity
-                                    Intent iRegister = new Intent(LoginActivity.this, HomeActivity.class);
-                                    startActivity(iRegister);
-
-                                }
-                            }, 1000);
-                        }
-
-
             }
         });
 
@@ -214,7 +184,36 @@ public class LoginActivity extends AppCompatActivity {
         return token;
     }
 
+    public void Login(){
+        //Check if email and password are matching
+        if (!(mAuth(email.getText().toString(), (pass.getText().toString())))) {
+            email.setText("");
+            pass.setText("");
+            Toast.makeText(LoginActivity.this, "Wrong Email or Password!", Toast.LENGTH_SHORT).show();
+        }
 
+        else {
+            //display progress bar
+            btnLogin.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+
+            //Handle authentication
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+
+                    //user welcome feedback
+                    Toast.makeText(LoginActivity.this, "Welcome ", Toast.LENGTH_SHORT).show();
+
+                    //chamge activity
+                    Intent iRegister = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(iRegister);
+
+                }
+            }, 1000);
+        }
+    }
 
     ValueEventListener listener = new ValueEventListener() {
         @Override
@@ -224,8 +223,8 @@ public class LoginActivity extends AppCompatActivity {
                 User user = dss.getValue(User.class);
                 list.add(user);
             }
-
-
+            //start login procedure
+            Login();
         }
 
         @Override
@@ -233,6 +232,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     };
+
 
 
     //check if edit text fields are empty
