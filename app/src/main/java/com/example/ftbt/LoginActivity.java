@@ -186,7 +186,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void Login(){
         //Check if email and password are matching
-        if (!(mAuth(email.getText().toString(), (pass.getText().toString())))) {
+        if (!(mAuth(email.getText().toString().toLowerCase().trim(),
+                (pass.getText().toString().toLowerCase().trim())))) {
             email.setText("");
             pass.setText("");
             Toast.makeText(LoginActivity.this, "Wrong Email or Password!", Toast.LENGTH_SHORT).show();

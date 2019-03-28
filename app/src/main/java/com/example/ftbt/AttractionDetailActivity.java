@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,7 +56,9 @@ public class AttractionDetailActivity extends AppCompatActivity {
         ///get current attr and pass it to fragment
         currentAttraction = getIntent().getParcelableExtra("Attraction");
 
+        //set activity title
         setTitle(currentAttraction.getName());
+
 
         //add the attraction detail fragment to the activity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

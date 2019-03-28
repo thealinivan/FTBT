@@ -43,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 
+        //linking elements
         email = findViewById(R.id.register_email);
         pass = findViewById(R.id.register_password);
         passConf = findViewById(R.id.register_passwordConfirm);
@@ -62,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Handle user registration in firebase
+                //Handle user registration in FireBase
 
                     //user feedback if missing info
                     if(TextUtils.isEmpty(fName.getText().toString())){

@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -86,8 +87,10 @@ public class AddAttractionActivity extends AppCompatActivity {
 
         submitBtn.setVisibility(View.VISIBLE);
 
+        //storage references
         sRef = FirebaseStorage.getInstance().getReference("Images");
         dbRef = FirebaseDatabase.getInstance().getReference("Attractions");
+
 
         //on click listeners
         pick.setOnClickListener(new View.OnClickListener() {
@@ -279,7 +282,7 @@ public class AddAttractionActivity extends AppCompatActivity {
     }
 
     public String attrCategory(){ return "Green Spaces"; }
-    public String linkUrl(){ return "free entry"; }
+    public String linkUrl(){ return "false"; }
 
 
 }

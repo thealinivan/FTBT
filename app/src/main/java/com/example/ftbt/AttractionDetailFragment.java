@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -173,9 +174,13 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
                 if(LoginActivity.token) {
                     //Handle website redirection
                     String url = currentAttraction.getLinkUrl();
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
+                    if(url.equals("false")){
+                        Toast.makeText(getActivity(), "FREE to visit", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+                    }
                 }
                 else{
                     Intent iLogin = new Intent(getActivity(), LoginActivity.class);
