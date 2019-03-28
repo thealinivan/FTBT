@@ -68,6 +68,7 @@ public class ListGreenSpacesFragment extends Fragment implements AttractionAdapt
 
         }
     };
+    
 
     @Override
     public void onAttractionClick(int position) {

@@ -40,6 +40,7 @@ public class AttractionDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attraction_detail);
 
+
         //toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,6 +54,8 @@ public class AttractionDetailActivity extends AppCompatActivity {
 
         ///get current attr and pass it to fragment
         currentAttraction = getIntent().getParcelableExtra("Attraction");
+
+        setTitle(currentAttraction.getName());
 
         //add the attraction detail fragment to the activity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

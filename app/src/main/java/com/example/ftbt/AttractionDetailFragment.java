@@ -153,7 +153,7 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
         switch(v.getId()){
             case R.id.attr_detail_reviews:
                 //smooth scroll to reviews section
-                scrollView.smoothScrollTo(0, (int)reviewsTitle.getY());
+                scrollView.smoothScrollTo(0, ((int)reviewsTitle.getY()));
             break;
             case R.id.attr_detail_new_review:
                 if(!(LoginActivity.token)) {
