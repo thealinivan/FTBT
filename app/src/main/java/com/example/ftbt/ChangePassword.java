@@ -1,6 +1,7 @@
 package com.example.ftbt;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +10,24 @@ import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.manager.RequestManagerRetriever;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class ChangePassword extends AppCompatActivity {
 
     private ShareActionProvider shareActionProvider;
+    private TextView oldPass, newPass, newPassConf;
+    private Button cpSubmitBtn;
+    private ProgressBar cpPb;
+    private DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +40,59 @@ public class ChangePassword extends AppCompatActivity {
         //set up button on app bar
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+
+        oldPass = findViewById(R.id.cp_old_password);
+        newPass = findViewById(R.id.cp_new_password);
+        newPassConf = findViewById(R.id.cp_conf_new_password);
+        cpSubmitBtn = findViewById(R.id.cp_submitBtn);
+        cpPb = findViewById(R.id.cp_progress_bar);
+        cpPb.setVisibility(View.INVISIBLE);
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Users");
+
+        cpSubmitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (oldPass == null && newPass == null && newPassConf == null )
+                {
+                    Toast.makeText(ChangePassword.this, "All fields are mandatory!", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    final String _oldPass = oldPass.getText().toString().trim();
+                    final String _newPass = newPass.getText().toString().trim();
+                    final String _newPassConf = newPass.getText().toString().trim();
+
+                    if (!LoginActivity.getCurrentUser().getPassword().equals(_oldPass))
+                    {
+                        Toast.makeText(ChangePassword.this, "Old password don't match!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (!_newPass.equals(_newPassConf))
+                    {
+                        Toast.makeText(ChangePassword.this, "New passwords don't match!", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        cpPb.setVisibility(View.VISIBLE);
+                        cpSubmitBtn.setVisibility(View.INVISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                User user = LoginActivity.getCurrentUser();
+                                user.setPassword(_newPass);
+                                //store the user in firebase
+                                dbRef.child((user.getEmail()).replace(".", ",")).setValue(user);
+                                Toast.makeText(ChangePassword.this, "Account password has been changed", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(ChangePassword.this, AccountActivity.class));
+                            }
+                        }, 1000);
+
+                    }
+                }
+
+
+            }
+        });
+
     }
 
     //right menu along with action icons
