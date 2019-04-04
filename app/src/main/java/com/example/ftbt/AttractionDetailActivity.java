@@ -50,8 +50,6 @@ public class AttractionDetailActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 
-        //set activity title
-        this.setTitle("Attraction Title");
 
         ///get current attr and pass it to fragment
         currentAttraction = getIntent().getParcelableExtra("Attraction");
