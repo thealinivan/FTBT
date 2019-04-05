@@ -232,8 +232,10 @@ public class AddAttractionActivity extends AppCompatActivity {
 
     public String attrLocation() {
 
-        //GET LAT AND LONG
+        String loc="51.50383317973739/-0.14520326520196";
+        Double lng, lat;
 
+        //GET LAT AND LONG
         LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         //request location permissions
         ActivityCompat.requestPermissions(AddAttractionActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -247,10 +249,12 @@ public class AddAttractionActivity extends AppCompatActivity {
         }
         //get Lat and Lng
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Double lng = location.getLongitude();
-        Double lat = location.getLatitude();
-
-            return lat.toString()+"/"+lng.toString() ;
+        if(location!=null) {
+            lng = location.getLongitude();
+            lat = location.getLatitude();
+            loc = lat.toString()+"/"+lng.toString() ;
+        }
+            return loc;
     }
 
     //check attraction ID against all existent attractions ID's in the database
