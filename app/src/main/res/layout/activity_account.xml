@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--parent container-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,10 +8,12 @@
     android:layout_height="match_parent"
     tools:context=".AccountActivity">
 
+   <!-- toolbar-->
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <!--scrollview-->
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -17,11 +21,13 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:layout_editor_absoluteX="0dp">
 
+        <!--scrollview's child (container of all UI elements)-->
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
+            <!--UI elements-->
+            <!--title-->
             <TextView
                 android:id="@+id/account_title"
                 android:layout_width="wrap_content"
@@ -39,6 +45,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.486" />
 
+    <!--subtitle-->
     <TextView
         android:id="@+id/account_subtitle"
         android:layout_width="wrap_content"
@@ -48,6 +55,7 @@
         app:layout_constraintEnd_toEndOf="@+id/account_title"
         app:layout_constraintTop_toBottomOf="@+id/account_title" />
 
+    <!--guideline-->
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
@@ -55,6 +63,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.25" />
 
+            <!--heading-->
             <TextView
                 android:id="@+id/heading_personal_info"
                 android:layout_width="wrap_content"
@@ -67,6 +76,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
+    <!--heading-->
     <TextView
         android:id="@+id/heading_activity"
         android:layout_width="wrap_content"
@@ -80,6 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/account_password" />
 
 
+    <!--name label-->
     <TextView
         android:id="@+id/account_name"
         android:layout_width="wrap_content"
@@ -91,6 +102,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading_personal_info" />
 
+    <!--email label-->
     <TextView
         android:id="@+id/account_email"
         android:layout_width="wrap_content"
@@ -102,6 +114,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_name" />
 
+    <!--name content-->
     <TextView
         android:id="@+id/account_name_content"
         android:layout_width="wrap_content"
@@ -114,6 +127,7 @@
         app:layout_constraintStart_toEndOf="@+id/account_name"
         app:layout_constraintTop_toBottomOf="@+id/heading_personal_info" />
 
+    <!--email content-->
     <TextView
         android:id="@+id/account_email_content"
         android:layout_width="wrap_content"
@@ -127,6 +141,7 @@
         app:layout_constraintTop_toBottomOf="@+id/account_name_content" />
 
 
+    <!--change password button-->
     <Button
         android:id="@+id/account_password"
         android:layout_width="142dp"
@@ -141,6 +156,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_email_content" />
 
+    <!--my attractions button-->
     <Button
         android:id="@+id/account_my_attractions_button"
         android:layout_width="142dp"
@@ -155,6 +171,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading_activity" />
 
+    <!--my reviews button-->
     <Button
         android:id="@+id/account_my_reviews_button"
         android:layout_width="142dp"
@@ -169,24 +186,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_my_attractions_button" />
 
-            <Button
-                android:id="@+id/account_sign_out"
-                android:layout_width="170dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="128dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="128dp"
-                android:background="@drawable/button_main_action"
-                android:text="@string/account_sign_out"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_my_reviews_button"
-                app:layout_constraintVertical_bias="0.0" />
+        <!--sign out button-->
+        <Button
+            android:id="@+id/account_sign_out"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="128dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/button_main_action"
+            android:text="@string/account_sign_out"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_my_reviews_button"
+            app:layout_constraintVertical_bias="0.0" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

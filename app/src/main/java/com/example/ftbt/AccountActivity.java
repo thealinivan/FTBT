@@ -1,5 +1,6 @@
 package com.example.ftbt;
 
+//imports used in the current class
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -29,17 +30,19 @@ import java.util.Locale;
 
 public class AccountActivity extends AppCompatActivity {
 
+    //Objects instantiation
     private ShareActionProvider shareActionProvider;
     private Button logoutBtn, myAttractionsBtn, myReviewsBtn, changePasswordBtn;
     private TextView accountSubtitle, accountName, accountEmail;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-        //toolbar
+        //top toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,6 +50,7 @@ public class AccountActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 
+        //object-UI elements links
         logoutBtn = findViewById(R.id.account_sign_out);
         myAttractionsBtn = findViewById(R.id.account_my_attractions_button);
         myReviewsBtn = findViewById(R.id.account_my_reviews_button);
@@ -55,17 +59,21 @@ public class AccountActivity extends AppCompatActivity {
         accountEmail = findViewById(R.id.account_email_content);
         changePasswordBtn = findViewById(R.id.account_password);
 
-
-        if (LoginActivity.token = true) {
+        //populate UI if user is logged in
+        if (LoginActivity.token)
+        {
             User user = LoginActivity.getCurrentUser();
             accountSubtitle.setText(capitalize(user.getfName()) + " " + capitalize(user.getlName()));
             accountName.setText(capitalize(user.getfName()) + " " + capitalize(user.getlName()));
             accountEmail.setText(user.getEmail());
         }
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
+        //log out procedure; start login activity after
+        logoutBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 LoginActivity.token = false;
                 Toast.makeText(AccountActivity.this, "Logged Out!", Toast.LENGTH_SHORT).show();
                 Intent iLogin = new Intent(AccountActivity.this, LoginActivity.class);
@@ -73,33 +81,43 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
-        myAttractionsBtn.setOnClickListener(new View.OnClickListener() {
+        //start my attractions activity through intent
+        myAttractionsBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Intent iMyAttr = new Intent(AccountActivity.this, MyAttractionsActivity.class);
                 startActivity(iMyAttr);
             }
         });
 
-        myReviewsBtn.setOnClickListener(new View.OnClickListener() {
+        //start my reviews activity through intent
+        myReviewsBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 startActivity(new Intent(AccountActivity.this, MyReviewsActivity.class));
             }
         });
 
-        changePasswordBtn.setOnClickListener(new View.OnClickListener() {
+        //start change password activity through intent
+        changePasswordBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Intent iPasChang = new Intent(AccountActivity.this, ChangePassword.class);
                 startActivity(iPasChang);
             }
         });
     }
 
-    //right menu along with action icons
+    //top right menu along with action icons
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         //right menu
         getMenuInflater().inflate(R.menu.menu_right, menu);
 
@@ -110,47 +128,61 @@ public class AccountActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //Handle share action
-    private void setShareActionIntent(String text){
+    //handle share action
+    private void setShareActionIntent(String text)
+    {
         Intent i = new Intent (Intent.ACTION_SEND);
         i.setType("text/plain");
         i.putExtra(i.EXTRA_TEXT, text);
         shareActionProvider.setShareIntent(i);
     }
 
-    //Handle selection of action on right menu
+    //handle selection on right menu
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
             //resolve the clash by adding break after each case
+            //handle create attraction option
             case R.id.action_create_attraction:
-                if(LoginActivity.token) {
+                //start add attraction activity through intent if user is logged in
+                if(LoginActivity.token)
+                {
                     Intent iAddAttr = new Intent(this, AddAttractionActivity.class);
                     startActivity(iAddAttr);
                 }
-                else{
-                    Intent iLogin = new Intent(this, LoginActivity.class);
-                    startActivity(iLogin);
-                    Toast.makeText(this, "You need to login first!", Toast.LENGTH_SHORT).show();
-                }
+                //start login activity through intent if user is not logged in
+                else
+                    {
+                        Intent iLogin = new Intent(this, LoginActivity.class);
+                        startActivity(iLogin);
+                        Toast.makeText(this, "You need to login first!", Toast.LENGTH_SHORT).show();
+                    }
                 break;
+                //handle account option
             case R.id.action_account:
-
-                if(LoginActivity.token) {
+                //start add attraction activity through intent if user is logged in
+                if(LoginActivity.token)
+                {
                     Intent iAccount = new Intent(this, AccountActivity.class);
                     startActivity(iAccount);
                 }
-                else{
-                    Intent iLogin = new Intent(this, LoginActivity.class);
-                    startActivity(iLogin);
-                }
+                //start login activity through intent if user is not logged in
+                else
+                    {
+                        Intent iLogin = new Intent(this, LoginActivity.class);
+                        startActivity(iLogin);
+                    }
                 break;
             default:
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public String capitalize(String string){
+    //make first letter of a string capital letter
+    public String capitalize(String string)
+    {
         return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 

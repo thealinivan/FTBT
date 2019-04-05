@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    //green theme
-    <color name="colorPrimary3">#2c9f45</color>
-    <color name="colorPrimaryDark3">#2c9f45</color>
-    <color name="colorDark3">#1A5F29</color>
-    <color name="colorAccent3">#2c9f45</color>
-    <color name="colorLight3">#4EAD65</color>
 
-    //red theme
-    <color id="1" name="colorPrimary1">#dd4b39</color>
-    <color name="colorPrimaryDark1">#dd4b39</color>
-    <color name="colorDark1">#A5382A</color>
-    <color name="colorAccent1">#dd4b39</color>
-    <color name="colorLight1">#D66051</color>
-    <color name="semiT801">#E6DD4B39</color>
-    <color name="semiT401">#4DDD4B39</color>
-
-    //blue theme
+    //blue theme color
     <color name="colorPrimary">#3b5998</color>
     <color name="colorPrimaryDark">#3b5998</color>
     <color name="colorDark">#203666</color>
@@ -24,14 +9,6 @@
     <color name="colorLight">#526DA7</color>
     <color name="semiT80">#E63B5998</color>
     <color name="semiT40">#4D3B5998</color>
-
-    //yellow theme
-    <color name="colorPrimary2">#C1C52B</color>
-    <color name="colorPrimaryDark2">#C1C52B</color>
-    <color name="colorDark2">#84861D</color>
-    <color name="colorAccent2">#C1C52B</color>
-    <color name="colorLight2">#C2C464</color>
-
 
     //cross theme colors
     <color name="white">#fff</color>
