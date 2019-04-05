@@ -38,8 +38,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -49,6 +53,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -65,6 +70,8 @@ public class AddAttractionActivity extends AppCompatActivity {
     private TextView attrLocation;
     private String imgUrl, _attrLocation;
     private DatabaseReference dbRef;
+    private Query qRef;
+    private ArrayList<Attraction> aList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,55 +132,12 @@ public class AddAttractionActivity extends AppCompatActivity {
                     Toast.makeText(AddAttractionActivity.this, "Enter Attraction Description!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                progressBar.setVisibility(View.VISIBLE);
-                submitBtn.setVisibility(View.INVISIBLE);
-
-                final StorageReference reference = sRef.child(attrName.getText().toString()+"."+getExtension(uri));
-
-
-                reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        imgUrl = uri.toString();
-                                        Log.d("TAG", imgUrl);
-
-                                        Attraction attr = new Attraction(attrName.getText().toString(),
-                                                attrDescription.getText().toString(),
-                                                _attrLocation,
-                                                attrCategory(),
-                                                imgUrl,
-                                                linkUrl(),
-                                                (LoginActivity.getCurrentUser()).getEmail());
-
-                                        //dbRef.child(dbRef.push().getKey()).setValue(attr);
-                                        dbRef.child(attr.getName()).setValue(attr);
-                                    }
-                                });
-
-
-                                Toast.makeText(AddAttractionActivity.this, "New attraction added!", Toast.LENGTH_SHORT).show();
-                                Intent iHome = new Intent(AddAttractionActivity.this, HomeActivity.class);
-                                startActivity(iHome);
-
-                            }
-                        }, 1000);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressBar.setVisibility(View.INVISIBLE);
-                        submitBtn.setVisibility(View.VISIBLE);
-                        Toast.makeText(AddAttractionActivity.this, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+              //firebase declaration and add listener
+                qRef = FirebaseDatabase.getInstance().getReference("Attractions")
+                        .getRef()
+                        .orderByChild("name")
+                        .equalTo(attrName.getText().toString());
+                qRef.addListenerForSingleValueEvent(listener);
             }
         });
 
@@ -288,6 +252,98 @@ public class AddAttractionActivity extends AppCompatActivity {
 
             return lat.toString()+"/"+lng.toString() ;
     }
+
+    //check attraction ID against all existent attractions ID's in the database
+    public boolean isDuplicateAttractionID()
+    {
+        boolean isDuplicate = false;
+        for(int i = 0; i < aList.size(); i++)
+        {
+            if(attrName.getText().toString().trim().toLowerCase().equals(aList.get(i).getName().toLowerCase().trim()))
+            {
+                isDuplicate = true;
+            }
+        }
+        return isDuplicate;
+    }
+
+    //add attraction process
+    public void addAttraction()
+    {
+        progressBar.setVisibility(View.VISIBLE);
+        submitBtn.setVisibility(View.INVISIBLE);
+
+        final StorageReference reference = sRef.child(attrName.getText().toString()+"."+getExtension(uri));
+
+
+        reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                imgUrl = uri.toString();
+                                Log.d("TAG", imgUrl);
+
+                                Attraction attr = new Attraction(attrName.getText().toString(),
+                                        attrDescription.getText().toString(),
+                                        _attrLocation,
+                                        attrCategory(),
+                                        imgUrl,
+                                        linkUrl(),
+                                        (LoginActivity.getCurrentUser()).getEmail());
+
+                                //dbRef.child(dbRef.push().getKey()).setValue(attr);
+                                dbRef.child(attr.getName()).setValue(attr);
+                            }
+                        });
+
+
+                        Toast.makeText(AddAttractionActivity.this, "New attraction added!", Toast.LENGTH_SHORT).show();
+                        Intent iHome = new Intent(AddAttractionActivity.this, HomeActivity.class);
+                        startActivity(iHome);
+
+                    }
+                }, 1000);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.INVISIBLE);
+                submitBtn.setVisibility(View.VISIBLE);
+                Toast.makeText(AddAttractionActivity.this, "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    //listener to get attraction object for comparison
+    ValueEventListener listener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            aList.clear();
+            for (DataSnapshot dss:dataSnapshot.getChildren()){
+                Attraction attr = dss.getValue(Attraction.class);
+                aList.add(attr);
+            }
+            //start login procedure
+            if(isDuplicateAttractionID())
+            {
+                Toast.makeText(AddAttractionActivity.this, "This attraction already exists. Write a review!", Toast.LENGTH_SHORT).show();
+            } else{
+                addAttraction();
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
 
     public String attrCategory(){ return "Green Spaces"; }
     public String linkUrl(){ return "false"; }

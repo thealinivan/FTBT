@@ -26,7 +26,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -203,7 +202,7 @@ public class RegisterActivity extends AppCompatActivity {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    public boolean isduplicateID() {
+    public boolean isDuplicateID() {
         boolean isDuplicate = false;
         for(int i = 0; i < uList.size(); i++)
         {
@@ -215,6 +214,7 @@ public class RegisterActivity extends AppCompatActivity {
         return isDuplicate;
     }
 
+    //Register process
     private void Register(){
         //display progress bar
         btnRegister.setVisibility(View.INVISIBLE);
@@ -253,7 +253,7 @@ public class RegisterActivity extends AppCompatActivity {
                 uList.add(user);
             }
             //start login procedure
-            if(isduplicateID())
+            if(isDuplicateID())
             {
                 Toast.makeText(RegisterActivity.this, "Email already used for another account!", Toast.LENGTH_SHORT).show();
             } else{
