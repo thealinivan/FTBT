@@ -236,12 +236,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    //check if edit text fields are empty
-    private boolean isEmpty(EditText etText)
-    {
-        return etText.getText().toString().trim().length() == 0;
-    }
-
     //return logged in user object
     public static User getCurrentUser(){
         return list.get(0);

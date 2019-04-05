@@ -2,6 +2,7 @@ package com.example.ftbt;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +18,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -29,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnLogin, btnRegister, btnGuest;
     private ProgressBar progressBar;
     private DatabaseReference dbRef;
+    private ArrayList<User> uList = new ArrayList<>();
+    private Query qRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,42 +103,16 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "Passwords must match!", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    else if(isDuplicateID(email.getText().toString())){
-                        //email.setText("");
-                        Toast.makeText(RegisterActivity.this, "Email already assigned to existing account!", Toast.LENGTH_SHORT).show();
-                    }
                     else if(!(isEmailValid(email.getText().toString()))){
                         //attrTitle.setText("");
                         Toast.makeText(RegisterActivity.this, "Wrong email!", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        //display progress bar
-                        btnRegister.setVisibility(View.INVISIBLE);
-                        progressBar.setVisibility(View.VISIBLE);
-
-                        //create user object
-                        User user = new User(email.getText().toString().toLowerCase().trim(),
-                                             pass.getText().toString().toLowerCase().trim(),
-                                             fName.getText().toString().toLowerCase().trim(),
-                                             lName.getText().toString().toLowerCase().trim());
-
-                        //store the user in firebase
-                        dbRef.child((user.getEmail()).replace(".", ",")).setValue(user);
-
-                        //end visual effects with a timing handler
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                //user feedback
-                                Toast.makeText(RegisterActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
-
-                                //start login activity
-                                Intent iLogin = new Intent(RegisterActivity.this, LoginActivity.class);
-                                startActivity(iLogin);
-                            }
-                        }, 1000);
-
+                        qRef = FirebaseDatabase.getInstance().getReference("Users")
+                                .getRef()
+                                .orderByChild("email")
+                                .equalTo(email.getText().toString().toLowerCase().trim());
+                        qRef.addListenerForSingleValueEvent(listener);
                     }
             }
 
@@ -215,20 +197,75 @@ public class RegisterActivity extends AppCompatActivity {
         return etText.getText().toString().trim().length() == 0;
     }
 
-    //Check for duplicate ID (email) in the database
-    public boolean isDuplicateID(String userEmail){
-        boolean isDupl = true;
-        //Check firebase for duplicate ID here
-            //...
-        isDupl = false;
-                //...
-
-        return isDupl;
-    }
 
     //check email pattern
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
+
+    public boolean isduplicateID() {
+        boolean isDuplicate = false;
+        for(int i = 0; i < uList.size(); i++)
+        {
+            if(email.getText().toString().trim().equals(uList.get(i).getEmail()))
+            {
+                isDuplicate = true;
+            }
+        }
+        return isDuplicate;
+    }
+
+    private void Register(){
+        //display progress bar
+        btnRegister.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+
+        //create user object
+        User user = new User(email.getText().toString().toLowerCase().trim(),
+                pass.getText().toString().toLowerCase().trim(),
+                fName.getText().toString().toLowerCase().trim(),
+                lName.getText().toString().toLowerCase().trim());
+
+        //store the user in firebase
+        dbRef.child((user.getEmail()).replace(".", ",")).setValue(user);
+
+        //end visual effects with a timing handler
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                //user feedback
+                Toast.makeText(RegisterActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
+
+                //start login activity
+                Intent iLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(iLogin);
+            }
+        }, 1000);
+    }
+
+    ValueEventListener listener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            uList.clear();
+            for (DataSnapshot dss:dataSnapshot.getChildren()){
+                User user = dss.getValue(User.class);
+                uList.add(user);
+            }
+            //start login procedure
+            if(isduplicateID())
+            {
+                Toast.makeText(RegisterActivity.this, "Email already used for another account!", Toast.LENGTH_SHORT).show();
+            } else{
+                Register();
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
+
 
 }

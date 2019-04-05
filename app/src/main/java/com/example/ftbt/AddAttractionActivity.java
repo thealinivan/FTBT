@@ -63,7 +63,7 @@ public class AddAttractionActivity extends AppCompatActivity {
     private EditText attrName, attrDescription;
     private ProgressBar progressBar;
     private TextView attrLocation;
-    private String imgUrl;
+    private String imgUrl, _attrLocation;
     private DatabaseReference dbRef;
 
     @Override
@@ -94,6 +94,7 @@ public class AddAttractionActivity extends AppCompatActivity {
         sRef = FirebaseStorage.getInstance().getReference("Images");
         dbRef = FirebaseDatabase.getInstance().getReference("Attractions");
 
+        _attrLocation = attrLocation();
 
         //on click listeners
         pick.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +147,7 @@ public class AddAttractionActivity extends AppCompatActivity {
 
                                         Attraction attr = new Attraction(attrName.getText().toString(),
                                                 attrDescription.getText().toString(),
-                                                attrLocation(),
+                                                _attrLocation,
                                                 attrCategory(),
                                                 imgUrl,
                                                 linkUrl(),
@@ -266,7 +267,6 @@ public class AddAttractionActivity extends AppCompatActivity {
     }
 
     public String attrLocation() {
-        String coord;
 
         //GET LAT AND LONG
 
