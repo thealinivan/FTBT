@@ -45,7 +45,8 @@ public class MyAttractionsActivity extends AppCompatActivity implements Attracti
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 
-        String _user = LoginActivity.getCurrentUser().getfName().substring(0, 1).toUpperCase() + LoginActivity.getCurrentUser().getfName().substring(1);
+        String user = LoginActivity.getCurrentUser().getfName();
+        String _user = user.substring(0, 1).toUpperCase() + user.substring(1);
         setTitle(_user+"'s Attractions");
 
         rv = findViewById(R.id.my_attr_recycler);

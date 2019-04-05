@@ -8,11 +8,13 @@
     <color name="colorLight3">#4EAD65</color>
 
     //red theme
-    <color name="colorPrimary1">#dd4b39</color>
+    <color id="1" name="colorPrimary1">#dd4b39</color>
     <color name="colorPrimaryDark1">#dd4b39</color>
     <color name="colorDark1">#A5382A</color>
     <color name="colorAccent1">#dd4b39</color>
     <color name="colorLight1">#D66051</color>
+    <color name="semiT801">#E6DD4B39</color>
+    <color name="semiT401">#4DDD4B39</color>
 
     //blue theme
     <color name="colorPrimary">#3b5998</color>

@@ -1,8 +1,14 @@
 package com.example.ftbt;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
@@ -121,6 +127,7 @@ public class AttractionDetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     public static Attraction getCurrentAttraction()
     {
         return currentAttraction;

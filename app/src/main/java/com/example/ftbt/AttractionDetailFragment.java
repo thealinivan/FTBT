@@ -1,10 +1,17 @@
 package com.example.ftbt;
 
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class AttractionDetailFragment extends Fragment implements View.OnClickListener {
@@ -34,7 +42,7 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
     private TextView reviews, reviewsTitle, _attrTitle, _attrLocation, _attrDescription;
     private Button btnAddReview, btnBook;
     private ScrollView scrollView;
-    private ImageView _attrImg;
+    private ImageView _attrImg, _map;
     private Attraction currentAttraction;
 
     private RecyclerView rv;
@@ -42,6 +50,8 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
     private ReviewAdapter adapter;
     private ArrayList<Review> reviewsList = new ArrayList<>();
     private Query qRef;
+
+
 
     public AttractionDetailFragment() {}
 
@@ -64,11 +74,12 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
         _attrLocation = attrDetailLayout.findViewById(R.id.attr_detail_location);
         _attrDescription = attrDetailLayout.findViewById(R.id.attr_detail_description);
         _attrImg = attrDetailLayout.findViewById(R.id.attr_detail_img);
+        _map = attrDetailLayout.findViewById(R.id.attr_detail_map);
 
 
         //populate data fields
         _attrTitle.setText(currentAttraction.getName());
-        _attrLocation.setText(currentAttraction.getLocation());
+        _attrLocation.setText("London");
         _attrDescription.setText(currentAttraction.getDescription());
         Picasso.get().load(currentAttraction.getImgUrl()).into(_attrImg);
 
@@ -89,6 +100,9 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
         reviews.setOnClickListener(this);
         btnAddReview.setOnClickListener(this);
         btnBook.setOnClickListener(this);
+        _attrLocation.setOnClickListener(this);
+        _map.setOnClickListener(this);
+
 
         return attrDetailLayout;
     }
@@ -181,18 +195,36 @@ public class AttractionDetailFragment extends Fragment implements View.OnClickLi
                         i.setData(Uri.parse(url));
                         startActivity(i);
                     }
-                }
-                else{
+                } else{
                     Intent iLogin = new Intent(getActivity(), LoginActivity.class);
                     startActivity(iLogin);
                     Toast.makeText(getActivity(), "You need to login first!", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.attr_detail_location:
+                if(!currentAttraction.getLocation().equals("London")) {
+                    openMaps();
+                }
+                break;
+            case R.id.attr_detail_map:
+                if(!currentAttraction.getLocation().equals("London")) {
+                    openMaps();
+                }
             default:
         }
 
     }
 
+    public void openMaps(){
+        String _loc = currentAttraction.getLocation();
+        Double lat = Double.parseDouble(_loc.split("\\/")[0]);
+        Double lng = Double.parseDouble(_loc.substring(_loc.lastIndexOf('/') + 1));
+
+        //open default maps
+        String uri = String.format(Locale.ENGLISH, "geo:%f,%f"+"?z=17", lat, lng);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(intent);
+    }
     public static AttractionDetailFragment newInstance() {
         return new AttractionDetailFragment();
     }

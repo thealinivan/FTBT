@@ -1,6 +1,15 @@
 package com.example.ftbt;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,12 +25,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class AccountActivity extends AppCompatActivity {
 
     private ShareActionProvider shareActionProvider;
-    Button logoutBtn, myAttractionsBtn, myReviewsBtn, changePasswordBtn;
-    TextView accountSubtitle, accountName, accountEmail ;
+    private Button logoutBtn, myAttractionsBtn, myReviewsBtn, changePasswordBtn;
+    private TextView accountSubtitle, accountName, accountEmail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +55,11 @@ public class AccountActivity extends AppCompatActivity {
         accountEmail = findViewById(R.id.account_email_content);
         changePasswordBtn = findViewById(R.id.account_password);
 
-        if(LoginActivity.token = true){
+
+        if (LoginActivity.token = true) {
             User user = LoginActivity.getCurrentUser();
-            accountSubtitle.setText(capitalize(user.getfName())+" "+capitalize(user.getlName()));
-            accountName.setText(capitalize(user.getfName())+" "+capitalize(user.getlName()));
+            accountSubtitle.setText(capitalize(user.getfName()) + " " + capitalize(user.getlName()));
+            accountName.setText(capitalize(user.getfName()) + " " + capitalize(user.getlName()));
             accountEmail.setText(user.getEmail());
         }
 
@@ -72,8 +84,7 @@ public class AccountActivity extends AppCompatActivity {
         myReviewsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent iMyRev = new Intent(AccountActivity.this, MyReviewsActivity.class);
-                startActivity(iMyRev);
+                startActivity(new Intent(AccountActivity.this, MyReviewsActivity.class));
             }
         });
 
@@ -85,7 +96,6 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
     }
-
 
     //right menu along with action icons
     @Override

@@ -205,7 +205,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     //user welcome feedback
-                    Toast.makeText(LoginActivity.this, "Welcome ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Welcome back " + getCurrentUser().getfName().substring(0, 1).toUpperCase() + getCurrentUser().getfName().substring(1), Toast.LENGTH_SHORT).show();
 
                     //chamge activity
                     Intent iRegister = new Intent(LoginActivity.this, HomeActivity.class);

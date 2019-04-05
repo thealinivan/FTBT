@@ -1,8 +1,10 @@
 package com.example.ftbt;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -13,6 +15,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -103,7 +106,7 @@ public class AddAttractionActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        attrLocation.setText(attrLocation());
+                        attrLocation.setText("London");
                     }
                 }, 1000);
             }
@@ -263,22 +266,27 @@ public class AddAttractionActivity extends AppCompatActivity {
     }
 
     public String attrLocation() {
-        String address = "London";
+        String coord;
 
-        //Get Lat and Lng
-        Location loc = new Location("");
-        Double lng = loc.getLongitude();
-        Double lat = loc.getLatitude();
+        //GET LAT AND LONG
 
-        //Get address based on Lat and Long
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        //request location permissions
+        ActivityCompat.requestPermissions(AddAttractionActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        ActivityCompat.requestPermissions(AddAttractionActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
 
-            return address ;
-    }
+        //check permissions
+        if (ActivityCompat.checkSelfPermission(AddAttractionActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(AddAttractionActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+        }
+        //get Lat and Lng
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Double lng = location.getLongitude();
+        Double lat = location.getLatitude();
 
-    //check if edit text fields are empty
-    private boolean isEmpty(EditText etText)
-    {
-        return etText.getText().toString().trim().length() == 0;
+            return lat.toString()+"/"+lng.toString() ;
     }
 
     public String attrCategory(){ return "Green Spaces"; }

@@ -67,7 +67,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Ho
         String _user = user.substring(0, 1).toUpperCase() + user.substring(1);
         holder.tv2.setText(_user);
 
-        holder.tv3.setText(list.get(i).getLocation().split("\\@")[0]);
+        holder.tv3.setText("London");
 
         Picasso.get().load((list.get(i)).getImgUrl()).into(holder.iv);
     }
