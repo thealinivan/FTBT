@@ -6,6 +6,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ShareActionProvider;
@@ -51,7 +52,7 @@ public class MyAttractionsActivity extends AppCompatActivity implements Attracti
 
         rv = findViewById(R.id.my_attr_recycler);
 
-        manager = new LinearLayoutManager(MyAttractionsActivity.this);
+        manager = new GridLayoutManager(MyAttractionsActivity.this, 2);
         rv.setLayoutManager(manager);
 
         qRef = FirebaseDatabase.getInstance().getReference("Attractions")
