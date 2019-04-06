@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--main parent element-->
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,21 +9,19 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-
+    <!--appbar (includes the toolbar)-->
     <include
         android:id="@+id/appbar"
         layout="@layout/appbar"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp" />
 
-
+    <!--view pager used by pager adapter to handle attraction lists fragments-->
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/appbar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-
 
 </android.support.constraint.ConstraintLayout>

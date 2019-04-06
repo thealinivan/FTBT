@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class ListGreenSpacesFragment extends Fragment implements AttractionAdapter.Holder.AttractionClickListener {
 
+    //object instantiation
     private RecyclerView rv;
     private RecyclerView.LayoutManager manager;
     private AttractionAdapter adapter;
@@ -30,29 +31,38 @@ public class ListGreenSpacesFragment extends Fragment implements AttractionAdapt
     private ArrayList<Attraction> list = new ArrayList<>();
     private Query qRef;
 
+    //empty constructor
     public ListGreenSpacesFragment(){}
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //fragments root view
         View rootView = inflater.inflate(R.layout.fragment_list_green_spaces, container, false);
+
+        //object linking with UI elements
         rv = rootView.findViewById(R.id.green_spaces_recycler);
         manager = new GridLayoutManager(getActivity(), 2);
         rv.setLayoutManager(manager);
 
+        //Firebase reference filtering attractions by green spaces category
         qRef = FirebaseDatabase.getInstance().getReference("Attractions")
                 .getRef()
                 .orderByChild("category")
                 .equalTo("Green Spaces");
+
+        //attach the listener wich populated the attraction array called list
         qRef.addListenerForSingleValueEvent(listener);
 
         return rootView;
     }
 
+    //listener which populates the attraction array called list
     ValueEventListener listener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            //clear the arrray list and populate it in a loop
             list.clear();
             for (DataSnapshot dss:dataSnapshot.getChildren()){
                 Attraction attr = dss.getValue(Attraction.class);
@@ -62,16 +72,16 @@ public class ListGreenSpacesFragment extends Fragment implements AttractionAdapt
             rv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
-
         @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
+        public void onCancelled(@NonNull DatabaseError databaseError) {}
     };
     
-
+    //Overriden on click function implementation...
+    //..of the AttractionClickListener interface from AttractionAdapter
     @Override
     public void onAttractionClick(int position) {
+        //start AttractionDetailActivity passing the clicked list-position of the attraction object..
+        // ..retrieved from the interface implementation in the Attraction Adapter
         Intent i = new Intent(getActivity(), AttractionDetailActivity.class);
         i.putExtra("Attraction", list.get(position));
         startActivity(i);
