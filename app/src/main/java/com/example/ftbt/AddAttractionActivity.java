@@ -59,6 +59,7 @@ import java.util.Locale;
 
 public class AddAttractionActivity extends AppCompatActivity {
 
+    //instantiation
     private ShareActionProvider shareActionProvider;
     private ImageView pick;
     public static final int REQUESTCODE = 100;
@@ -98,19 +99,25 @@ public class AddAttractionActivity extends AppCompatActivity {
         submitBtn.setVisibility(View.VISIBLE);
 
         //storage references
+        //image reference
         sRef = FirebaseStorage.getInstance().getReference("Images");
+        //attraction objects reference
         dbRef = FirebaseDatabase.getInstance().getReference("Attractions");
 
+        //storing GPS coordinates in variable
         _attrLocation = attrLocation();
 
         //on click listeners
+        //picking the image
         pick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //gallery intent
                 Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, REQUESTCODE);
 
+                //delay UI location
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -132,11 +139,12 @@ public class AddAttractionActivity extends AppCompatActivity {
                     Toast.makeText(AddAttractionActivity.this, "Enter Attraction Description!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-              //firebase declaration and add listener
+              //firebase and listener to check for duplicates
                 qRef = FirebaseDatabase.getInstance().getReference("Attractions")
                         .getRef()
                         .orderByChild("name")
                         .equalTo(attrName.getText().toString());
+                //attach the listener
                 qRef.addListenerForSingleValueEvent(listener);
             }
         });
@@ -222,13 +230,6 @@ public class AddAttractionActivity extends AppCompatActivity {
     }
 
 
-    //Check for duplicate ID (attraction title) in the database
-    public boolean isDuplicateID(String attractionTitle){
-        boolean isDupl = true;
-        //Check firebase for duplicate ID here
-        //...
-        return isDupl;
-    }
 
     public String attrLocation() {
 
@@ -278,8 +279,6 @@ public class AddAttractionActivity extends AppCompatActivity {
         submitBtn.setVisibility(View.INVISIBLE);
 
         final StorageReference reference = sRef.child(attrName.getText().toString()+"."+getExtension(uri));
-
-
         reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -306,8 +305,6 @@ public class AddAttractionActivity extends AppCompatActivity {
                                 dbRef.child(attr.getName()).setValue(attr);
                             }
                         });
-
-
                         Toast.makeText(AddAttractionActivity.this, "New attraction added!", Toast.LENGTH_SHORT).show();
                         Intent iHome = new Intent(AddAttractionActivity.this, HomeActivity.class);
                         startActivity(iHome);
