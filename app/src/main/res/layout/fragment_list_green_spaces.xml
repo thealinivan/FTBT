@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--parent-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,6 +9,7 @@
     tools:context="com.example.ftbt.ListGreenSpacesFragment"
     app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
+        <!--recycler view used to populate attraction with attraction adapter-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/green_spaces_recycler"
             android:layout_width="match_parent"

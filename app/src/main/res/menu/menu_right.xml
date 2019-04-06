@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--parent element-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--add option-->
     <item
         android:id="@+id/action_create_attraction"
         android:icon="@drawable/ic_add"
@@ -10,6 +12,7 @@
         app:showAsAction="always" />
         //can also be showAsAction="always"
 
+    <!--account option-->
     <item
         android:id="@+id/action_account"
         android:icon="@drawable/ic_account3"
@@ -17,6 +20,7 @@
         android:title="@string/title_activity_account"
         app:showAsAction="always" />
 
+    <!--share option-->
     <item android:id="@+id/action_share"
         android:title="@string/action_share"
         android:orderInCategory="3"

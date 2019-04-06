@@ -29,22 +29,26 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
-    //Tablayout icons array
+    //object instantiation for share feature
+    private ShareActionProvider shareActionProvider;
+
+    //Tab layout icons array
     private int[] tabIcons = {
             R.drawable.ic_mainattractions,
             R.drawable.ic_museum,
             R.drawable.ic_greenspaces1
     };
 
-    private ShareActionProvider shareActionProvider;
-
-
+    //open the same activity on back pressed to avoid..
+    //..going on the main activity wich should be displayed..
+    //..only once when the app is initialized
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(HomeActivity.this, HomeActivity.class));
     }
 
+    //on create function
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-
     }
-
-
 
     //right menu along with action icons
     @Override
@@ -100,23 +101,28 @@ public class HomeActivity extends AppCompatActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             switch(item.getItemId()) {
                 //resolve the clash by adding break after each case
+                //handle create attraction option
                 case R.id.action_create_attraction:
                     if(LoginActivity.token) {
                         Intent iAddAttr = new Intent(this, AddAttractionActivity.class);
                         startActivity(iAddAttr);
                     }
+                    //start login activity through intent if user is not logged in
                     else{
                         Intent iLogin = new Intent(this, LoginActivity.class);
                         startActivity(iLogin);
                         Toast.makeText(this, "You need to login first!", Toast.LENGTH_SHORT).show();
                     }
                 break;
-                case R.id.action_account:
 
+                //handle account option
+                case R.id.action_account:
+                    //start add attraction activity through intent if user is logged in
                     if(LoginActivity.token) {
                         Intent iAccount = new Intent(this, AccountActivity.class);
                         startActivity(iAccount);
                     }
+                    //start login activity through intent if user is not logged in
                     else{
                         Intent iLogin = new Intent(this, LoginActivity.class);
                         startActivity(iLogin);
