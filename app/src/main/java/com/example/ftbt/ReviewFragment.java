@@ -91,6 +91,9 @@ public class ReviewFragment extends Fragment implements View.OnClickListener {
                             fm.popBackStack();
                         }
                     }
+                    Intent i = new Intent(getActivity(), AttractionDetailActivity.class);
+                    i.putExtra("Attraction", AttractionDetailActivity.getCurrentAttraction());
+                    startActivity(i);
                 }
                 break;
             case R.id.cancel_review_button:
