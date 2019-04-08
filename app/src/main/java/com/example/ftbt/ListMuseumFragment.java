@@ -39,6 +39,7 @@ public class ListMuseumFragment extends Fragment implements AttractionAdapter.Ho
         //fragments root view
         View rootView = inflater.inflate(R.layout.fragment_list_museum, container, false);
         //object linking with UI elements
+        //recycler view holding repetitive attraction data
         rv = rootView.findViewById(R.id.museums_recycler);
         manager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(manager);

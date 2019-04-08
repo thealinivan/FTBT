@@ -26,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-
 public class HomeActivity extends AppCompatActivity {
 
     //object instantiation for share feature
@@ -114,7 +113,6 @@ public class HomeActivity extends AppCompatActivity {
                         Toast.makeText(this, "You need to login first!", Toast.LENGTH_SHORT).show();
                     }
                 break;
-
                 //handle account option
                 case R.id.action_account:
                     //start add attraction activity through intent if user is logged in

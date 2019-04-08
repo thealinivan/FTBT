@@ -203,7 +203,6 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-
                     //user welcome feedback
                     Toast.makeText(LoginActivity.this, "Welcome back " + getCurrentUser().getfName().substring(0, 1).toUpperCase() + getCurrentUser().getfName().substring(1), Toast.LENGTH_SHORT).show();
 
@@ -233,8 +232,6 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     };
-
-
 
     //return logged in user object
     public static User getCurrentUser(){

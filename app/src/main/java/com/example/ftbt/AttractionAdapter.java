@@ -61,14 +61,19 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.Ho
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
+
+        //set title
         holder.tv.setText(list.get(i).getName());
 
+        //set user
         String user = list.get(i).getUserID().split("\\@")[0];
         String _user = user.substring(0, 1).toUpperCase() + user.substring(1);
         holder.tv2.setText(_user);
 
+        //set location
         holder.tv3.setText("London");
 
+        //set image
         Picasso.get().load((list.get(i)).getImgUrl()).into(holder.iv);
     }
 
